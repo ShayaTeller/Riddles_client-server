@@ -47,20 +47,3 @@ console.log(`the average of answer one riddle is:${pley1.showStats()/pley1.times
 
 
 
-
-
-
-// const p1 = new Player()
-
-
-// r03.ask()
-// r04.ask()
-// r05.ask()
-// r06.ask()
-// r07.ask()
-// p1.showStats()
-
-
-
-// r01.ask()
-// r02.ask()
