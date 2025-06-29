@@ -9,16 +9,20 @@ import PromptSync from 'prompt-sync';
 const prompt = PromptSync();
 
 
-
+// ask the user what level he whant
 const level = prompt('Choose difficulty: easy / medium / hard: ');
+// saved the import riddleslist in a vaireble
 const riddleList = AllRiddles
-
+// initilyze the riddles list filterd by riddle-level
 let filtertRiddleList = riddleList.filter((item) => item.difficulty === level);
-
+// taks user name
 const name = prompt(`enter yor name!`)
+// initilyze a new pleyer (instance) whit "name"
 const pley1 = new Player(name)
 
+// runing whit foreach of the correntRiddlelist, in each step he do:
 filtertRiddleList.forEach(element => {
+    // create new instance of Riidle class
     const riddle1 = new Riddle(element);
     let start = Date.now()
     riddle1.ask()
