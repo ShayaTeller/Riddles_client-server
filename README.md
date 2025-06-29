@@ -13,9 +13,9 @@ the program gives him the total time it took to answer, and the average time for
 C:\dev\jsNew\Riddles>node app.js>>
 
 Choose difficulty: easy / medium / hard:
-easy
-enter yor name!
-Shaya 
+easy,
+enter yor name!,
+Shaya ,
 What is 10 - 4?
 6
 hello pleyr: Shaya
