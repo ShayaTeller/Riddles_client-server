@@ -7,21 +7,18 @@ class Player{
 
 
     }
-    recordTime = function(riddel){
-         const Start = Date.now()
-         if(riddel!= riddel.ask()){   
-            const End = Date.now();
-            this.times.push({"id":riddel.id,"startTime":Start,"endTime":End,"time":(End-Start)})  
-        }}
+    recordTime = function(start,end){
+        this.times.push(end-start)}
 
+
+// return the sum of seconds that taks for the pleyer to answer all riddles
     showStats = function(){
-        console.log(`the total time is: ${(this.times[0]["endTime"])*-1-(this.times[6]["startTime"])*-1}`)
-    }
-    riddleAvg = function(times){
-        let result = 0;
-        for (let index = 0; index < times.length; index++) {
-             result += times[index]["time"];  
+        let result =0;
+        for (let index = 0; index < this.times.length; index++) {
+           result += this.times[index];            
+        return result;// = number
+            
         }
-        return result/times.length
+    
     }
 }

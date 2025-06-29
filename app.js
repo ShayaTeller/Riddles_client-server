@@ -7,20 +7,29 @@ import PromptSync from 'prompt-sync';
 
 
 const prompt = PromptSync();
+
+
+
+const level = prompt('Choose difficulty: easy / medium / hard: ');
+const riddleList = AllRiddles
+
+let filtertRiddleList = riddleList.filter((item) => item.difficulty === level);
+
 const name = prompt(`enter yor name!`)
 const pley1 = new Player(name)
 
-
-const riddleList = AllRiddles
-riddleList.forEach(element => {
+filtertRiddleList.forEach(element => {
     const riddle1 = new Riddle(element);
-    pley1.recordTime(riddle1)
+    let start = Date.now()
     riddle1.ask()
-});
-const res = pley1.riddleAvg(pley1.times)
-    console.log(`hello pleyr: ${pley1.name}\n you win!\nlook of your information:`)
-    console.log(`the average of answer one riddle is:${res}`)
-pley1.showStats()
+    let endtime = Date.now()
+    pley1.recordTime(start,endtime)}
+)
+
+console.log(`hello pleyr: ${pley1.name}\nyou win!\nlook of your information:`)
+console.log(`the total time is: ${pley1.showStats()} seconds`)
+console.log(`the average of answer one riddle is:${pley1.showStats()/pley1.times.length} seconds`)
+
 
 
 
