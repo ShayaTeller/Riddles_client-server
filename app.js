@@ -37,3 +37,13 @@ console.log(`the average of answer one riddle is:${player.showStats() / player.t
 
 
 
+
+
+
+
+
+
+
+
+
+
