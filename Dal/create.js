@@ -1,9 +1,8 @@
 import { readFile, writeFile } from 'fs/promises'
 import PromptSync from 'prompt-sync';
 
-export default
 
-    async function createNewRiddle(newRiddle) {
+export async function createNewRiddle(newRiddle) {
         try {
             const dataInFile = await readFile('dataBase/riddleDB.txt', 'utf-8');
             let pooledData = JSON.parse(dataInFile);
@@ -33,7 +32,7 @@ function idSorter(DBdata) {
 };
 
 // asking the user to insert the information of the new riddle
-function askForRiddle() {
+export function askForRiddle() {
 
     const prompt = PromptSync();
     const name = prompt("enter name: ");
