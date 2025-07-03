@@ -1,35 +1,53 @@
 import PromptSync from 'prompt-sync';
-import {playGame} from './game.js'
+import { playGame } from './game.js'
+import { readDB } from '../Dal/read.js'
+import { updateRiddleById } from '../Dal/update.js'
+import { deleteRiddleBiId } from '../Dal/delete.js'
+import { createNewRiddle, askForRiddle } from '../Dal/create.js'
+import { error } from 'console';
 
 export async function mainMenu() {
-    
 
-    const prompt = PromptSync();
-    const value = prompt(`What do you want to do?
+    try {
+        const prompt = PromptSync();
+        const value = prompt(`What do you want to do?
 1. Play the game
 2. Create a new riddle
 3. Read all riddles
-4. Update an existing riddle
-5. Delete a riddle
-6. View leaderboard`)
-    switch (value) {
-        case "1":
-            playGame()
-        break;
+4. Delete a riddle
+5. Update an existing riddle
+6. View leaderboard\n`)
+        switch (value) {
+            case "1":
+                playGame()
+                break;
 
-        case "2":
-            riddleObj.difficulty = prompt(`enter new the difficulty: `)
-            break;
+            case "2":
+                createNewRiddle(askForRiddle());
+                break;
 
-        case "3":
-            riddleObj.taskDescription = prompt(`enter the new taskDescription`)
-            break;
+            case "3":
+                const data = await readDB()
+                console.log(data)
+                break;
 
-        case "4":
-            riddleObj.correctAnswer = prompt(`enter new the correctAnswer`)
-            break;
+            case "4":
+                let id = prompt("enter riddle id that you whont deleted")
+                deleteRiddleBiId(id)
+                break;
 
-        default:
-            break;
+            case "5":
+                id = prompt("enter riddle id that you whont update")
+                updateRiddleById(id)
+                break;
+
+            default:
+                break;
+        }
     }
+    catch {
+        console.log(error);
+
+    }
+
 }
