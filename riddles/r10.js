@@ -1,9 +1,8 @@
 export default {
-  id: 2,
-  name: "Subtraction",
+  id: 3,
+  name: "Basic Subtraction",
   difficulty: "easy",
-  taskDescription: "What is 10 - 4?",
+  taskDescription: "What is 9 - 3?",
   correctAnswer: "6",
   timeLimit:"2"
-
-};
+}

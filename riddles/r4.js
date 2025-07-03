@@ -3,5 +3,7 @@ export default {
   name: "Multiplication",
   difficulty: "medium",
   taskDescription: "What is 7 × 6?",
-  correctAnswer: "42"
+  correctAnswer: "42",
+  timeLimit:"2"
+
 };

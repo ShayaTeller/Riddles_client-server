@@ -3,5 +3,7 @@ export default {
   name: "Division",
   difficulty: "medium",
   taskDescription: "What is 36 ÷ 6?",
-  correctAnswer: "6"
+  correctAnswer: "6",
+  timeLimit:"2"
+
 };

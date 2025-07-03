@@ -3,5 +3,7 @@ export default {
   name: "Square Root",
   difficulty: "hard",
   taskDescription: "What is the square root of 49?",
-  correctAnswer: "7"
+  correctAnswer: "7",
+  timeLimit:"2"
+
 };
