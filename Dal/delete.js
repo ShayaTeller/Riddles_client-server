@@ -2,7 +2,6 @@ import { readDB } from "./read.js";
 import { createNewRiddle } from "./create.js";
 import { writeFile } from "fs/promises";
 
-
 export async function deleteRiddleBiId(id) {
     let pooledData = await readDB();
     for (let index = 0; index < pooledData.length; index++) {
