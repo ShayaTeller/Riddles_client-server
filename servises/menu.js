@@ -1,10 +1,10 @@
 import PromptSync from 'prompt-sync';
 import { playGame } from './game.js'
-import { readDB } from '../Dal/read.js'
+import { readRiddleDB } from '../Dal/read.js'
 import { updateRiddleById } from '../Dal/update.js'
 import { deleteRiddleBiId } from '../Dal/delete.js'
 import { createNewRiddle, askForRiddle } from '../Dal/create.js'
-import { error } from 'console';
+import { log } from 'console';
 
 export async function mainMenu() {
 
@@ -27,7 +27,7 @@ export async function mainMenu() {
                 break;
 
             case "3":
-                const data = await readDB()
+                const data = await readRiddleDB()
                 console.log(data)
                 break;
 
@@ -37,8 +37,8 @@ export async function mainMenu() {
                 break;
 
             case "5":
-                id = prompt("enter riddle id that you whont update")
-                updateRiddleById(id)
+                let num = prompt("enter riddle id that you whont update");
+                updateRiddleById(num);
                 break;
 
             default:
@@ -46,8 +46,9 @@ export async function mainMenu() {
         }
     }
     catch {
-        console.log(error);
+        console.log(Error);
 
     }
 
 }
+
