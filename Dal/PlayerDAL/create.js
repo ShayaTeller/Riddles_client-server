@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'fs/promises';
-import { idSorter } from './create.js';
+import { idSorter } from '../PlayerDAL/read.js';
 
 export async function writePlayr(player) {
     let newPlayer = {

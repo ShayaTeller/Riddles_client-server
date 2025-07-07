@@ -1,6 +1,6 @@
 
 import { platform } from 'os';
-import { readPlayrDB } from '../Dal/read.js';
+import { readPlayrDB } from '../Dal/PlayerDAL/read.js';
 import Player from '../clases/player.js';
 
 export async function CheckIfExistInFile(name) {

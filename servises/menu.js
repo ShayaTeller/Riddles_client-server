@@ -1,9 +1,9 @@
 import PromptSync from 'prompt-sync';
 import { playGame } from './game.js'
-import { readRiddleDB } from '../Dal/read.js'
-import { updateRiddleById } from '../Dal/update.js'
-import { deleteRiddleBiId } from '../Dal/delete.js'
-import { createNewRiddle, askForRiddle } from '../Dal/create.js'
+import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
+import { updateRiddleById } from '../Dal/RiddelDAL/update.js'
+import { deleteRiddleBiId } from '../Dal/RiddelDAL/delete.js'
+import { createNewRiddle, askForRiddle } from '../Dal/RiddelDAL/create.js'
 import { log } from 'console';
 
 export async function mainMenu() {

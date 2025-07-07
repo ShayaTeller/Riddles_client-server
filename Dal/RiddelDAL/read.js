@@ -7,11 +7,6 @@ export async function readRiddleDB(){
     return pooledData;
 
 }
-export async function readPlayrDB(){
-    const dataInFile = await readFile('dataBase/playerDB.txt', 'utf-8');
-    let pooledData =await JSON.parse(dataInFile)
-    return pooledData;
 
-}
 
 

@@ -7,7 +7,7 @@
   {
     "id": 2,
     "name": "shaya",
-    "lowestTime": 5793
+    "lowestTime": 2817
   },
   {
     "id": 3,

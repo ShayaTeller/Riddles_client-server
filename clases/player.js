@@ -1,5 +1,5 @@
 import { join } from "path";
-import { readPlayrDB } from "../Dal/read.js";
+import { readPlayrDB } from "../Dal/PlayerDAL/read.js";
 
 export default class Player {
     constructor(name) {

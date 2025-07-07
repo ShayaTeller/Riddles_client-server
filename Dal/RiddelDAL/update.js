@@ -1,6 +1,6 @@
 import { readRiddleDB } from "./read.js";
 import { writeFile } from "fs/promises";
-import Riddle from "../clases/riddle.js";
+import Riddle from "../../clases/riddle.js";
 import PromptSync from 'prompt-sync';
 import { log } from "console";
 

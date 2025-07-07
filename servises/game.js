@@ -1,8 +1,9 @@
 import Riddle from '../clases/riddle.js';
 import Player from '../clases/player.js';
 import PromptSync from 'prompt-sync';
-import { readPlayrDB, readRiddleDB } from '../Dal/read.js'
-import { writePlayr } from '../Dal/playerHandler.js';
+import {  readRiddleDB } from '../Dal/RiddelDAL/read.js'
+import {readPlayrDB} from '../Dal/PlayerDAL/read.js'
+import { writePlayr } from '../Dal/PlayerDAL/create.js';
 import { CheckIfExistInFile } from './playercheck.js'
 // ask the user what level he whant
 export async function playGame() {
