@@ -7,7 +7,7 @@ import { log } from "console";
 
 
 export async function updateRiddleById(num) {
-    let pulledData = await readDB();
+    let pulledData = await readRiddleDB();
     for (let index = 0; index < pulledData.length; index++) {
         if (pulledData[index]["id"] == num) {
             const riddleObj = new Riddle(pulledData[index]);

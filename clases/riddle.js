@@ -1,7 +1,8 @@
 import PromptSync from 'prompt-sync';
+
 // this class is the pattern for a riidle
 export default class Riddle {
-
+// the constractor thaks a object 
     constructor(riddle) {
         this.id = riddle.id;
         this.name = riddle.name;
