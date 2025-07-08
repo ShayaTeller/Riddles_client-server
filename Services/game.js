@@ -30,7 +30,6 @@ export async function playGame() {
     const name = prompt(`enter your name!`)
     // initilyze a new pleyer (instance) whit "name"
     const player = await CheckIfExistInFile(name)
-    console.log("debug lowestTime BEFORE check:", player.lowestTime);
 
 
 

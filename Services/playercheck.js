@@ -12,7 +12,6 @@ export async function CheckIfExistInFile(name) {
             Player1.id = exsistplayers[index]["id"];
             Player1.name = exsistplayers[index]["name"];
             Player1.lowestTime = exsistplayers[index]["lowestTime"]; // ✅ תיקון השם
-            console.log(Player1);
             return Player1;
         }
     }

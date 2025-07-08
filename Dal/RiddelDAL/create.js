@@ -15,23 +15,24 @@ import PromptSync from 'prompt-sync';
 //          catch(error){
 //             console.log(error);
 //          }  }
-
 export async function createNewRiddle(newRiddle) {
     try {
         const dataInFile = await readFile('dataBase/riddleDB.txt', 'utf-8');
-        let pooledData = JSON.parse(`[${dataInFile.trim().split('\n').join(',')}]`); // 🆕 מאפשר קריאה מקובץ שורה-שורה
+        let pooledData = [];
+
+        if (dataInFile.trim()) {
+            pooledData = JSON.parse(dataInFile); // קובץ שמור כ-array שלם
+        }
+
         pooledData.push(newRiddle);
         idSorter(pooledData);
 
-        const lines = pooledData.map(obj => JSON.stringify(obj)).join('\n'); // 🆕 כל אובייקט בשורה נפרדת
-        writeFile('dataBase/riddleDB.txt', lines); // 🆕 שמירה בפורמט שורה-שורה
-    }
-    catch(error){
-        console.log(error);
+        await writeFile('dataBase/riddleDB.txt', JSON.stringify(pooledData, null, 2));
+        console.log("Riddle saved successfully!");
+    } catch (error) {
+        console.error("Error writing to DB:", error);
     }
 }
-
-
 
 
 
