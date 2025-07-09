@@ -53,7 +53,7 @@ const value = prompt(`to update :
             }
             pulledData[index] = riddleObj
         }    }
-    pulledData = JSON.stringify(pulledData)
+    pulledData = JSON.stringify(pulledData,null,2)
    await writeFile('dataBase/riddleDB.txt', pulledData)
 
 }

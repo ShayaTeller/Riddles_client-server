@@ -11,7 +11,7 @@ export async function deleteRiddleBiId(id) {
     }
         console.log(pooledData)
 
-        pooledData = await JSON.stringify(pooledData)
+        pooledData = await JSON.stringify(pooledData,null,2)
     writeFile('dataBase/riddleDB.txt',pooledData)
     }
 

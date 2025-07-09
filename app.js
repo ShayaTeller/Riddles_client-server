@@ -1,4 +1,4 @@
-import {mainMenu} from './servises/menu.js';
+import {mainMenu} from './Services/menu.js';
 
 mainMenu();
 
