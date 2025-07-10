@@ -1,10 +1,12 @@
 import Riddle from '../clases/riddle.js';
 import Player from '../clases/player.js';
 import PromptSync from 'prompt-sync';
-import {  readRiddleDB } from '../Dal/RiddelDAL/read.js'
-import {readPlayrDB} from '../Dal/PlayerDAL/read.js'
+import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
+import { readPlayrDB } from '../Dal/PlayerDAL/read.js'
 import { writePlayr } from '../Dal/PlayerDAL/create.js';
 import { CheckIfExistInFile } from './playercheck.js'
+import { readFile } from 'fs/promises'
+import { fetchToReadRiddleDB } from './api.js'
 // ask the user what level he whant
 export async function playGame() {
     const prompt = PromptSync();
@@ -22,7 +24,8 @@ export async function playGame() {
         }
     }
 
-    const allRiddles = await readRiddleDB()
+    // const allRiddles = await readRiddleDB()
+    let allRiddles = await fetchToReadRiddleDB()
     // initilyze the riddles list filterd by riddle-level
     let filtertRiddleList = allRiddles.filter((item) => item.difficulty === level);
 
@@ -30,8 +33,6 @@ export async function playGame() {
     const name = prompt(`enter your name!`)
     // initilyze a new pleyer (instance) whit "name"
     const player = await CheckIfExistInFile(name)
-
-
 
 
     // runing whit foreach of the correntRiddlelist, in each step he do:
