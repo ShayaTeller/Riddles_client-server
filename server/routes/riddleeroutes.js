@@ -1,16 +1,34 @@
 import express from 'express';
-import { readRiddleDB } from '../../Dal/RiddelDAL/read.js'
-import { idSorter } from '../../Dal/RiddelDAL/create.js';
-import { writeFile } from 'fs/promises';
-
+import { readRiddleDB } from '../../CLIENT/Dal/RiddelDAL/read.js'
+import { idSorter} from '../../CLIENT/Dal/RiddelDAL/create.js'
+import { writeFile, readFile } from 'fs/promises';
+// import Riddle from '../../clases/riddle.js'
 
 const router = express.Router();
 
-router.get('/getallriddles', async (req, res) => {
-    console.log(req.method, req.url)
-    let data = await readRiddleDB('../dataBase/riddleDB.txt')
-    res.end(JSON.stringify(data))
+
+// getting one riddle by id
+router.get('/riddles/:id', async (req, res) => {
+    const id = Number(req.params.id);
+    let pulledData = await readRiddleDB('../CLIENT/dataBase/riddleDB.txt')
+    const found = pulledData.find(r => r.id === id);
+    if (!found) {
+        return res.status(404).json({ error: `not found` });
+    }
+    res.json(found);
 });
+
+
+
+router.get('/riddles', async (req, res) => {
+    // C:\dev\jsNew\RiddlesClientServer\CLIENT\dataBase\riddleDB.txt
+
+    let pulledData = await readRiddleDB('../CLIENT/dataBase/riddleDB.txt')
+    res.end(JSON.stringify(pulledData))
+
+})
+
+
 
 router.post('/createNewRiddle', async (req, res) => {
     const riddle = req.body;
@@ -23,8 +41,34 @@ router.post('/createNewRiddle', async (req, res) => {
     console.log("Riddle saved successfully!");
 
     await writeFile('../dataBase/riddleDB.txt', JSON.stringify(dataInFile1))
-    res.end("succses")
+    res.end("succses")})
+    
+
+        // res.write("create new riddle succeful")});
+
+        
+
+
+
+
+router.put('/riddles/:id', async (req, res) => {
+    const id = req.params.id
+    console.log(id)
+    const updatedRiddle = req.body;
+    console.log(updatedRiddle)
+
+    let dataInFile1 = await readRiddleDB('../CLIENT/dataBase/riddleDB.txt')
+    for (let index = 0; index < dataInFile1.length; index++) {
+        if (dataInFile1[index]["id"] == id) {
+            dataInFile1[index] = updatedRiddle
+            await writeFile('../dataBase/riddleDB.txt', dataInFile1)
+            res.end("succses")
+        }
+    }
+    res.end("faild!")
 })
+
+// router.delete()
 
 // export async function createNewRiddle(newRiddle) {
 //     try {

@@ -2,6 +2,7 @@
   "name": "riddles_project",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --watch ServerApp.js"
@@ -11,7 +12,6 @@
     "url": "git+https://github.com/ShayaTeller/riddles_project.git"
   },
   "author": "",
-  "type": "module",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ShayaTeller/riddles_project/issues"

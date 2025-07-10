@@ -1,5 +1,4 @@
 import express from 'express'
-import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
 import riddlesRouter from './routes/riddleeroutes.js';
 
 
