@@ -1,5 +1,5 @@
 import { readRiddleDB } from "./read.js";
-import { createNewRiddle } from "./create.js";
+// import { createNewRiddle } from "./create.js";
 import { writeFile } from "fs/promises";
 
 export async function deleteRiddleBiId(id) {

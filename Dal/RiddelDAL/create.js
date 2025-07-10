@@ -15,24 +15,24 @@ import PromptSync from 'prompt-sync';
 //          catch(error){
 //             console.log(error);
 //          }  }
-export async function createNewRiddle(newRiddle) {
-    try {
-        const dataInFile = await readFile('dataBase/riddleDB.txt', 'utf-8');
-        let pooledData = [];
+// export async function createNewRiddle(newRiddle) {
+//     try {
+//         const dataInFile = await readFile('../../dataBase/riddleDB.txt', 'utf-8');
+//         let pooledData = [];
 
-        if (dataInFile.trim()) {
-            pooledData = JSON.parse(dataInFile); // קובץ שמור כ-array שלם
-        }
+//         if (dataInFile.trim()) {
+//             pooledData = JSON.parse(dataInFile); // קובץ שמור כ-array שלם
+//         }
 
-        pooledData.push(newRiddle);
-        idSorter(pooledData);
+//         pooledData.push(newRiddle);
+//         idSorter(pooledData);
 
-        await writeFile('dataBase/riddleDB.txt', JSON.stringify(pooledData, null, 2));
-        console.log("Riddle saved successfully!");
-    } catch (error) {
-        console.error("Error writing to DB:", error);
-    }
-}
+//         await writeFile('../../../dataBase/riddleDB.txt', JSON.stringify(pooledData, null, 2));
+//         console.log("Riddle saved successfully!");
+//     } catch (error) {
+//         console.error("Error writing to DB:", error);
+//     }
+// }
 
 
 
@@ -68,16 +68,48 @@ export function askForRiddle() {
 
 
 
+// export async function fetchNewRiddle(fn) {
+//     const newriddle = fn()
+//     fetch("http://localhost:3000/createNewRiddle", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(newriddle)
+//     })
 
-const riddles = [ /* המערך שלך כפי ששלחת למעלה */ ];
 
-// נמיר כל אובייקט לשורת JSON אחת
-const lines = riddles.map(obj => JSON.stringify(obj)).join('\n');
 
-writeFile('riddles.txt', lines, (err) => {
-  if (err) {
-    console.error('שגיאה בכתיבה:', err);
-  } else {
-    console.log('נשמר בהצלחה!');
-  }
-});
+
+
+
+
+
+
+
+
+
+
+
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log("result:", data);
+    // })
+    // .catch(err => {
+    //   console.error("error:", err);
+    // });
+
+
+// }
+// const riddles = [ /* המערך שלך כפי ששלחת למעלה */ ];
+
+// // נמיר כל אובייקט לשורת JSON אחת
+// const lines = riddles.map(obj => JSON.stringify(obj)).join('\n');
+
+// writeFile('riddles.txt', lines, (err) => {
+//   if (err) {
+//     console.error('שגיאה בכתיבה:', err);
+//   } else {
+//     console.log('נשמר בהצלחה!');
+//   }
+// });

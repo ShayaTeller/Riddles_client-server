@@ -3,8 +3,8 @@ import { playGame } from './game.js'
 import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
 import { updateRiddleById } from '../Dal/RiddelDAL/update.js'
 import { deleteRiddleBiId } from '../Dal/RiddelDAL/delete.js'
-import { createNewRiddle, askForRiddle } from '../Dal/RiddelDAL/create.js'
-import { log } from 'console';
+import {  askForRiddle } from '../Dal/RiddelDAL/create.js'
+import {fetchNewRiddle, fetchToReadRiddleDB} from './api.js'
 
 export async function mainMenu() {
 
@@ -23,12 +23,13 @@ export async function mainMenu() {
                 break;
 
             case "2":
-                createNewRiddle(askForRiddle());
+                fetchNewRiddle(askForRiddle)
+                
                 break;
 
             case "3":
-                const data = await readRiddleDB()
-                console.log(data)
+                // const data = await readRiddleDB()
+               console.log(await fetchToReadRiddleDB());
                 break;
 
             case "4":

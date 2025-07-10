@@ -1,0 +1,26 @@
+{
+  "name": "riddles_project",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch ServerApp.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShayaTeller/riddles_project.git"
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShayaTeller/riddles_project/issues"
+  },
+  "homepage": "https://github.com/ShayaTeller/riddles_project#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "prompt-sync": "^4.2.0",
+    "readline-sync": "^1.4.10"
+  }
+}
