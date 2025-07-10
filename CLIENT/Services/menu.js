@@ -1,11 +1,10 @@
 import PromptSync from 'prompt-sync';
 import { playGame } from './game.js'
 import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
-import { updateRiddleById } from '../Dal/RiddelDAL/update.js'
 import { deleteRiddleBiId } from '../Dal/RiddelDAL/delete.js'
-import {  askForRiddle } from '../Dal/RiddelDAL/create.js'
-import {fetchNewRiddle, fetchToReadRiddleDB} from './api.js'
-
+import { askFornewRiddle } from '../Dal/RiddelDAL/create.js'
+import { askForRiddle } from '../Dal/RiddelDAL/update.js'
+import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById } from './api.js'
 export async function mainMenu() {
 
     try {
@@ -23,13 +22,13 @@ export async function mainMenu() {
                 break;
 
             case "2":
-                fetchNewRiddle(askForRiddle)
-                
+                fetchNewRiddle(askFornewRiddle)
+
                 break;
 
             case "3":
                 // const data = await readRiddleDB()
-               console.log(await fetchToReadRiddleDB());
+                console.log(await fetchToReadRiddleDB());
                 break;
 
             case "4":
@@ -38,8 +37,11 @@ export async function mainMenu() {
                 break;
 
             case "5":
-                let num = prompt("enter riddle id that you whont update");
-                updateRiddleById(num);
+                fetchNewRiddle(askForRiddle)
+                // const obj = askForRiddle()
+                // console.log(obj)
+
+
                 break;
 
             default:

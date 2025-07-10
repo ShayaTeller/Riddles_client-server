@@ -47,7 +47,7 @@ export function idSorter(DBdata) {
 };
 
 // asking the user to insert the information of the new riddle
-export function askForRiddle() {
+export function askFornewRiddle() {
 
     const prompt = PromptSync();
     const name = prompt("enter name: ");
