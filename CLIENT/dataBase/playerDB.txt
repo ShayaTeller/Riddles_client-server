@@ -6,67 +6,17 @@
   },
   {
     "id": 2,
-    "name": "shaya",
-    "lowestTime": 4729
+    "name": "hhh",
+    "lowestTime": 0
   },
   {
     "id": 3,
-    "name": "hopppp",
-    "lowestTime": 1295
+    "name": "ggg",
+    "lowestTime": 3043
   },
   {
     "id": 4,
-    "name": "a",
-    "lowestTime": 23389
-  },
-  {
-    "id": 5,
-    "name": "lll",
-    "lowestTime": 3362
-  },
-  {
-    "id": 6,
-    "name": "teller",
-    "lowestTime": 6610
-  },
-  {
-    "id": 7,
-    "name": "shyaa",
-    "lowestTime": 6748
-  },
-  {
-    "id": 8,
-    "name": "mss",
-    "lowestTime": 0
-  },
-  {
-    "id": 9,
-    "name": "",
-    "lowestTime": 0
-  },
-  {
-    "id": 10,
-    "name": "df",
-    "lowestTime": 0
-  },
-  {
-    "id": 11,
-    "name": "    let allRiddles = []",
-    "lowestTime": 0
-  },
-  {
-    "id": 12,
-    "name": "B",
-    "lowestTime": 0
-  },
-  {
-    "id": 13,
-    "name": "shaya teller",
-    "lowestTime": 1670
-  },
-  {
-    "id": 14,
-    "name": "dddd",
-    "lowestTime": 3032
+    "name": "lpo",
+    "lowestTime": 4098
   }
 ]

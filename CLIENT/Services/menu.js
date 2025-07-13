@@ -4,7 +4,7 @@ import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
 import { deleteRiddleBiId } from '../Dal/RiddelDAL/delete.js'
 import { askFornewRiddle } from '../Dal/RiddelDAL/create.js'
 import { askForRiddle } from '../Dal/RiddelDAL/update.js'
-import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById } from './api.js'
+import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById ,fetchToDeleteRiddleById} from './api.js'
 export async function mainMenu() {
 
     try {
@@ -33,7 +33,7 @@ export async function mainMenu() {
 
             case "4":
                 let id = prompt("enter riddle id that you whont deleted")
-                deleteRiddleBiId(id)
+                await fetchToDeleteRiddleById(id)
                 break;
 
             case "5":

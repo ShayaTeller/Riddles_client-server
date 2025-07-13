@@ -28,6 +28,7 @@ export async function playGame() {
     let allRiddles = await fetchToReadRiddleDB()
     // initilyze the riddles list filterd by riddle-level
     let filtertRiddleList = allRiddles.filter((item) => item.difficulty === level);
+    //  allRiddles = allRiddles.j
 
     // taks user name
     const name = prompt(`enter your name!`)

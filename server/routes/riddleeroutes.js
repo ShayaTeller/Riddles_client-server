@@ -1,7 +1,9 @@
 import express from 'express';
-import { readRiddleDB } from '../../CLIENT/Dal/RiddelDAL/read.js'
-import { idSorter} from '../../CLIENT/Dal/RiddelDAL/create.js'
-import { writeFile, readFile } from 'fs/promises';
+import { createNewRiddle } from '../Dal/RiddelDAL/create.js'
+import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
+import { updateRiddleById } from '../Dal/RiddelDAL/update.js'
+import { deleteRiddleBiId } from '../Dal/RiddelDAL/delete.js'
+
 // import Riddle from '../../clases/riddle.js'
 
 const router = express.Router();
@@ -19,69 +21,31 @@ router.get('/riddles/:id', async (req, res) => {
 });
 
 
-
+// this route dfine a request whit GET method , the respons wiil be a json with all riddles.
 router.get('/riddles', async (req, res) => {
-    // C:\dev\jsNew\RiddlesClientServer\CLIENT\dataBase\riddleDB.txt
-
-    let pulledData = await readRiddleDB('../CLIENT/dataBase/riddleDB.txt')
-    res.end(JSON.stringify(pulledData))
-
+    let data = await readRiddleDB()
+    res.end(JSON.stringify(data))
 })
 
 
-
-router.post('/createNewRiddle', async (req, res) => {
+// create a new riddle with a Post method
+router.post('/riddles', async (req, res) => {
     const riddle = req.body;
-    console.log(riddle)
-    let dataInFile1 = await readRiddleDB('../dataBase/riddleDB.txt')
-    dataInFile1.push(riddle)
-    idSorter(dataInFile1);
-    // await writeFile('../../dataBase/riddleDB.txt', JSON.stringify(pooledData, null, 2));
-    console.log(dataInFile1)
-    console.log("Riddle saved successfully!");
-
-    await writeFile('../dataBase/riddleDB.txt', JSON.stringify(dataInFile1))
-    res.end("succses")})
-    
-
-        // res.write("create new riddle succeful")});
-
-        
-
-
-
+    createNewRiddle(riddle);
+    res.end("succses")
+})
 
 router.put('/riddles/:id', async (req, res) => {
-    const id = req.params.id
-    console.log(id)
-    const updatedRiddle = req.body;
-    console.log(updatedRiddle)
-
-    let dataInFile1 = await readRiddleDB('../CLIENT/dataBase/riddleDB.txt')
-    for (let index = 0; index < dataInFile1.length; index++) {
-        if (dataInFile1[index]["id"] == id) {
-            dataInFile1[index] = updatedRiddle
-            await writeFile('../dataBase/riddleDB.txt', dataInFile1)
-            res.end("succses")
-        }
-    }
-    res.end("faild!")
+    // console.log(req.body)
+    res.end(await updateRiddleById(req.params.id,req.body)
+    )
 })
 
-// router.delete()
 
-// export async function createNewRiddle(newRiddle) {
-//     try {
-
-
-//         await writeFile('../../../dataBase/riddleDB.txt', JSON.stringify(pooledData, null, 2));
-//         console.log("Riddle saved successfully!");
-//     } catch (error) {
-//         console.error("Error writing to DB:", error);
-//     }
-// }
-
-
+router.delete('/riddles/:id', async (req, res) => {
+    res.send(deleteRiddleBiId(req.params.id)
+    )
+})
 
 
 
