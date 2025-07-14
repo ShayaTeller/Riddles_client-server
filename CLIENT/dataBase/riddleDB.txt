@@ -23,18 +23,18 @@
   },
   {
     "id": 4,
-    "name": "lop",
-    "difficulty": "ppp",
-    "taskDescription": "5*9",
-    "correctAnswer": "444",
-    "timeLimit": "00"
-  },
-  {
-    "id": 5,
     "name": "math",
     "difficulty": "easy",
     "taskDescription": "8*2",
     "correctAnswer": "16",
+    "timeLimit": "0"
+  },
+  {
+    "id": 5,
+    "name": "nath",
+    "difficulty": "easy",
+    "taskDescription": "7+3",
+    "correctAnswer": "10",
     "timeLimit": "0"
   }
 ]
