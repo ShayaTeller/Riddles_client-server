@@ -1,5 +1,5 @@
 import express from 'express';
-import {insertNewRiddel,getAllRiddeles} from '../Dal/riddeslDal.js'
+import {insertNewRiddel,getAllRiddeles,deletedByQuestion} from '../Dal/riddeslDal.js'
 
 const router = express.Router();
 
@@ -17,14 +17,14 @@ router.post('/riddles', async (req, res) => {
     res.end("succses")
 })
 
-router.put('/riddles/:id', async (req, res) => {
-    // console.log(req.body)
-    res.end(await updateRiddleById(req.params.id, req.body)
-    )
-})
+// router.put('/riddles/:id', async (req, res) => {
+//     // console.log(req.body)
+//     res.end(await updateRiddleById(req.params.id, req.body)
+//     )
+// })
 
-router.delete('/riddles/:id', async (req, res) => {
-    res.send(deleteRiddleBiId(req.params.id)
+router.delete('/riddles/:Question', async (req, res) => {
+    res.send( await deletedByQuestion(req.params.Question)
     )
 })
 

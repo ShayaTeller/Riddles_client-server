@@ -1,6 +1,6 @@
 import express from 'express'
-import riddlesRouter from './routes/riddles.js';
-import playerRouter from './routes/players.js';
+import riddlesRouter from './routes/riddles.js'
+// import playerRouter from './routes/players.js';
 
 
 const server = express();
