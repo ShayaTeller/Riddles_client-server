@@ -1,10 +1,8 @@
 
 import { platform } from 'os';
-import { readPlayrDB } from '../Dal/PlayerDAL/read.js';
 import Player from '../clases/player.js';
 
 export async function CheckIfExistInFile(name) {
-    let exsistplayers = await readPlayrDB();
     
     for (let index = 0; index < exsistplayers.length; index++) {
         if (exsistplayers[index]["name"] === name) {

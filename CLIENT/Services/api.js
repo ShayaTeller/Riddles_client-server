@@ -2,7 +2,7 @@
 
 // this fetch return all riddles
 export async function fetchToReadRiddleDB() {
-    const dataInFile = await fetch(`http://localhost:3000/riddles`)
+    const dataInFile = await fetch(`https://express-0w22.onrender.com/riddles`)
     let pooledData = await dataInFile.json()
     return pooledData
 }
@@ -21,7 +21,7 @@ export async function fetchToReadRiddleById(id) {
 // this send an new riddle , the body needs to להכיל an riddle-object and write  tham to the DB txt
 export async function fetchNewRiddle(fn) {
     const newriddle = fn()
-    fetch("http://localhost:3000/riddles", {
+    await fetch("https://express-0w22.onrender.com/riddles", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -49,6 +49,6 @@ export async function fetchToDeleteRiddleById(id) {
 
 }
 
-console.log(await fetchToReadRiddleDB())
+// console.log(await fetchToReadRiddleDB())
 // console.log(await fetchToReadRiddleById(2))
 // fetchToDeleteRiddleById(4);

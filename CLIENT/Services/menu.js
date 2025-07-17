@@ -1,9 +1,6 @@
 import PromptSync from 'prompt-sync';
 import { playGame } from './game.js'
-import { readRiddleDB } from '../Dal/RiddelDAL/read.js'
-import { deleteRiddleBiId } from '../Dal/RiddelDAL/delete.js'
-import { askFornewRiddle } from '../Dal/RiddelDAL/create.js'
-import { askForRiddle } from '../Dal/RiddelDAL/update.js'
+import { askForRiddle } from './createRiddel.js'
 import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById ,fetchToDeleteRiddleById} from './api.js'
 export async function mainMenu() {
 
@@ -22,7 +19,7 @@ export async function mainMenu() {
                 break;
 
             case "2":
-                fetchNewRiddle(askFornewRiddle)
+                fetchNewRiddle(askForRiddle)
 
                 break;
 

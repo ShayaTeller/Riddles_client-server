@@ -17,21 +17,20 @@ export async function writePlayr(player) {
     const dataInFile = await readFile('./dataBase/playerDB.txt', 'utf-8');
     //pars the existing data from string to an json object
     let pooledData = JSON.parse(dataInFile);
-//*******all the code down is from chat GPT i'm sorry */
-    // חפש אם כבר קיים שחקן עם אותו שם
+    // search if exsist
     const existingIndex = pooledData.findIndex(p => p.name === newPlayer.name);
-
+    // if exsist update
     if (existingIndex !== -1) {
-        // אם קיים - עדכן את השחקן
+
         pooledData[existingIndex] = newPlayer;
     } else {
-        // אם לא קיים - הוסף אותו
+        // if not exsist add new player
         pooledData.push(newPlayer);
     }
 
-    // מיין לפי ID
+    // sort the data idis 
     idSorter(pooledData);
+    //write to database
 
-    // כתוב לקובץ
     await writeFile('./dataBase/playerDB.txt', JSON.stringify(pooledData, null, 2)); // עם ריווח יפה
 }
