@@ -1,4 +1,3 @@
-import { resolveAny } from "dns"
 
 
 // this fetch return all riddles

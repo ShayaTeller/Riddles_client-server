@@ -2,27 +2,22 @@ import PromptSync from 'prompt-sync';
 
 // this class is the pattern for a riidle
 export default class Riddle {
-// the constractor thaks a object 
+    // the constractor thaks a object 
     constructor(riddle) {
-        this.id = riddle.id;
-        this.name = riddle.name;
-        this.difficulty = riddle.difficulty;
-        this.taskDescription = riddle.taskDescription;
-        this.correctAnswer = riddle.correctAnswer;
-        this.answer;
-        this.timeLimit;
-
+            this.level = riddle.level,
+            this.question = riddle.question,
+            this.answer = riddle.answer
+            this.res = '';
     }
-
 
 
     // this function ask the player the riddle and save the answer and checking it , stop asking when the answer is correct
     ask(start) {
         const prompt = PromptSync();
-        while (this.answer != this.correctAnswer) {
-            this.answer = prompt(this.taskDescription + ' ');
+        while (this.res != this.answer) {
+            this.res = prompt(this.question + ' ');
 
-            if (this.answer != this.correctAnswer) {
+            if (this.res != this.answer) {
                 console.log('Wrong answer, try again.');
             }
         }

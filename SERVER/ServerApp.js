@@ -1,6 +1,6 @@
 import express from 'express'
 import riddlesRouter from './routes/riddles.js'
-// import playerRouter from './routes/players.js';
+import playerRouter from './routes/players.js';
 
 
 const server = express();
@@ -24,3 +24,4 @@ server.use('/',playerRouter );
 server.listen(PORT, () => {
     console.log(`listening on port: ${PORT}`)
 })
+

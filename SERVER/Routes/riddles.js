@@ -1,21 +1,29 @@
 import express from 'express';
-import {insertNewRiddel,getAllRiddeles,deletedByQuestion} from '../Dal/riddeslDal.js'
+import { insertNewRiddel, getAllRiddeles, deletedByQuestion } from '../Dal/riddeslDal.js'
 
 const router = express.Router();
 
-// this route dfine a request whit GET method , the respons wiil be a json with all riddles.
+// getting all riddels
 router.get('/riddles', async (req, res) => {
     let data = await getAllRiddeles()
     data = JSON.stringify(data);
-    res.end(data)
+    res.send(data)
 });
+
+
 
 // create a new riddle with a Post method
 router.post('/riddles', async (req, res) => {
-    const riddle = req.body;
-    await insertNewRiddel(riddle);
-    res.end("succses")
-})
+    try {
+        const riddle = await req.body;
+        let newer = await insertNewRiddel(await riddle);
+        res.send("success");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 
 // router.put('/riddles/:id', async (req, res) => {
 //     // console.log(req.body)
@@ -23,19 +31,15 @@ router.post('/riddles', async (req, res) => {
 //     )
 // })
 
+
 router.delete('/riddles/:Question', async (req, res) => {
-    res.send( await deletedByQuestion(req.params.Question)
-    )
+    res.send(await deletedByQuestion(req.params.Question));
+
 })
+
 
 // getting one riddle by id
 router.get('/riddles/:id', async (req, res) => {
-    const id = Number(req.params.id);
-    let pulledData = await readRiddleDB('../CLIENT/dataBase/riddleDB.txt')
-    const found = pulledData.find(r => r.id === id);
-    if (!found) {
-        return res.status(404).json({ error: `not found` });
-    }
     res.json(found);
 });
 

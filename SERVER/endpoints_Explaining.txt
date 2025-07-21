@@ -1,0 +1,52 @@
+בס"ד
+riddles end points
+get
+1)
+'/riddles'
+request = get..
+response = dataArrayFromDB;
+
+2)
+'/riddles/:id'
+request = params = id;
+resonse = riddle.eq({id:id}) || riddel_not_found;
+
+
+post
+'/riddles'
+request = body = 'newriddle'
+response = success || false;
+delete
+'/riddles/:Question'
+request = params = question;
+response = success || riddel_not_found;
+
+put
+'/riddles/:Question'
+
+
+
+players end points
+
+get
+
+1)
+'/players'
+request = get...
+response = dataArreyFromDB;
+
+2)
+'/player/:name' 
+request = parrams = name;
+response = one player.eq({username:name}) || player_not-found;
+
+post  
+'/player'
+request = body = player;
+response = player id;
+
+put 
+'/player/:id'
+request = body = player;
+response = success;
+

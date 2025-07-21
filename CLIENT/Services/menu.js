@@ -1,7 +1,7 @@
 import PromptSync from 'prompt-sync';
 import { playGame } from './game.js'
 import { askForRiddle } from './createRiddel.js'
-import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById ,fetchToDeleteRiddleById} from './api.js'
+import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById ,fetchToDeleteRiddleByQuestion} from './api.js'
 export async function mainMenu() {
 
     try {
@@ -19,7 +19,9 @@ export async function mainMenu() {
                 break;
 
             case "2":
-                fetchNewRiddle(askForRiddle)
+               const riddele =  askForRiddle();
+            //    console.log(riddele)
+               await fetchNewRiddle(JSON.stringify(riddele))
 
                 break;
 
@@ -29,12 +31,12 @@ export async function mainMenu() {
                 break;
 
             case "4":
-                let id = prompt("enter riddle id that you whont deleted")
-                await fetchToDeleteRiddleById(id)
+                let Question = prompt("enter the Question that you whont deleted")
+                await fetchToDeleteRiddleByQuestion(Question);
                 break;
 
             case "5":
-                fetchNewRiddle(askForRiddle)
+                // fetchNewRiddle(askForRiddle)
                 // const obj = askForRiddle()
                 // console.log(obj)
 

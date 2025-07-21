@@ -3,7 +3,8 @@
  * and given the option to log the history of lowest time answer 
  */
 export default class Player {
-    constructor(name) {
+    constructor(name,id) {
+        this.id = id
         this.name = name
         this.times = [];
         this.lowestTime = 0;
