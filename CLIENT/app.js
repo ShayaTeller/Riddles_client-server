@@ -1,6 +1,6 @@
-import {mainMenu} from './Services/menu.js';
+import {authenticationMenu} from './Services/menu.js';
 
-mainMenu();
+authenticationMenu();
 
 
 
