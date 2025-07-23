@@ -1,7 +1,13 @@
 import { MongoClient } from "mongodb"
-const uri = 'mongodb+srv://ydt009:j3yDhDhixlZkE4a8@cluster0.vizwzcb.mongodb.net'
+import dotenv from 'dotenv';
+dotenv.config();
+
+const uri = process.env.MONGO_URI
+// console.log(uri)
+
 
 export const mongoclientdb = new MongoClient(uri);
+mongoclientdb.connect()
 try {
     await mongoclientdb.connect();
     console.log('Connected to MongoDB');

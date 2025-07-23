@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllPlayers,creatNewPlayer,checkIfExsist,getPlayerId } from "../Dal/PlayerDAL/playerDal.js";
+import { getAllPlayers, creatNewPlayer, checkIfExsist, getPlayerId } from "../Dal/PlayerDAL/playerDal.js";
 
 const router = express.Router();
 
@@ -44,14 +44,23 @@ router.get('/player/:name', async (req, res) => {
 router.post('/player', async (req, res) => {
     const Name = req.body.name;
     const id = await creatNewPlayer(Name);
-        res.end(id)});
-        
+    res.json(id)
+});
+
+
+router.post('/player/addScore', async (req, res) => {
+    const playerid = req.body.id;
+    const riddelid = req.body.riddelId;
+    const solvetime = req.body.time;
+    const result = await writeToPlayerScores(Name);
+    res.json()
+});
 
 
 
 
 
-router.post('submit-score',async(req,res)=>{
+router.post('submit-score', async (req, res) => {
 
 })
 

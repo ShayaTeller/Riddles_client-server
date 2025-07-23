@@ -16,6 +16,7 @@ export default class Player {
      */
     recordTime = function (start, end) {
         this.times.push(end - start)
+        return end -start
     }
 
     /**

@@ -1,15 +1,17 @@
 import express from 'express'
 import riddlesRouter from './routes/riddles.js'
 import playerRouter from './routes/players.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const server = express();
-const PORT = 3002;
+const PORT = process.env.PORT;
 
 
 server.use(express.json());
 server.use('/', (req, res,next) => {
-    console.log(req.method, req.url, res.statusCode);
+    console.log(req.method, req.url);
     next();
 })
 

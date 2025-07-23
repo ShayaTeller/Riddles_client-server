@@ -1,12 +1,9 @@
 import 'dotenv/config';
 import { MongoClient } from 'mongodb';
-import {mongoclientdb} from '../lib/mongoClient.js'
+import { mongoclientdb } from '../lib/mongoClient.js'
 // const clientDB = new MongoClient(uri);
 // export default clientDB
 
-
-
-// מכניס רפורט חדש
 // OK
 export async function insertNewRiddel(riddle) {
 
@@ -27,7 +24,7 @@ export async function getAllRiddeles() {
 export async function deletedByQuestion(Question) {
     const result = null;
     try {
-        result = await mongoclientdb.db('riddels_game').collection('riddles').deleteMany({ question:Question });
+        result = await mongoclientdb.db('riddels_game').collection('riddles').deleteMany({ question: Question });
     } catch (error) {
         return Error(error.massage)
     }

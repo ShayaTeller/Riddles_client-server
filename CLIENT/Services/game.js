@@ -2,8 +2,7 @@ import Riddle from '../clases/riddle.js';
 import Player from '../clases/player.js';
 import PromptSync from 'prompt-sync';
 // import { CheckIfExistInFile } from './playercheck.js'
-import { fetchToReadRiddleDB ,CheckIfExistInFile, CreateNewPlayer} from './api.js'
-import { all } from 'proxy-addr';
+import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer,addToPlayerScore } from './api.js'
 // ask the user what level he whant
 export async function playGame() {
     const prompt = PromptSync();
@@ -31,27 +30,24 @@ export async function playGame() {
     //  allRiddles = allRiddles.j
 
     // taks user name
-    const name = prompt(`enter your name!`)
+    const name = prompt(`enter your name!`);
     // initilyze a new pleyer (instance) whit "name"
-    
-    let id = await CheckIfExistInFile(name)
-    if (await id==false){
-        await CreateNewPlayer(name);
-        id = await CheckIfExistInFile(name);
-    }
-    
+    const player = await playerForGame(name);
+
+
 
 
     // runing whit foreach of the correntRiddlelist, in each step he do:
-    filtertRiddleList.forEach(element => {
+    filtertRiddleList.forEach(async element => {
         // console.log(element.question)
         // create new instance of Riidle class
-        const riddle =  new Riddle(element);
+        const riddle = new Riddle(element);
         // const riddle = new Riddle(element.level,element.,element.answer);
         let start = Date.now();
         riddle.ask(start);
         let endtime = Date.now();
-        player.recordTime(start, endtime);
+        const time = player.recordTime(start, endtime);
+        await addToPlayerScore(player,riddle._id,time)
     })
 
 
@@ -59,6 +55,7 @@ export async function playGame() {
     player.lowestTimeCheck()
     console.log(player)
     // await writePlay/r(player)
+
     console.log(`hello pleyr: ${player.name}\nyou win!\nlook of your information:`)
     console.log(`the total time is: ${player.showStats() / 1000}, seconds`)
     console.log(`the average of answer one riddle is:${player.showStats() / player.times.length / 1000} seconds`)
@@ -67,3 +64,14 @@ export async function playGame() {
 
 
 
+
+
+
+    async function playerForGame(name) {
+        let id = await CheckIfExistInFile(name)
+        if (await id == false) {
+            await CreateNewPlayer(name);
+            id = await CheckIfExistInFile(name);
+        }
+        return new Player(name,id);
+    }

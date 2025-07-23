@@ -7,7 +7,7 @@ export default class Riddle {
             this.level = riddle.level,
             this.question = riddle.question,
             this.answer = riddle.answer
-            this.res = '';
+            this.id = riddle._id;
     }
 
 

@@ -39,8 +39,8 @@ router.delete('/riddles/:Question', async (req, res) => {
 
 
 // getting one riddle by id
-router.get('/riddles/:id', async (req, res) => {
-    res.json(found);
-});
+// router.get('/riddles/:id', async (req, res) => {
+//     res.json(found);
+// });
 
 export default router;

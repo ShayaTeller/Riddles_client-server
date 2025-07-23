@@ -1,11 +1,15 @@
+import { time } from "console"
 import { resolveAny } from "dns"
 
 
 // this fetch return all riddles
 export async function fetchToReadRiddleDB() {
-    const dataInFile = await fetch(`http://localhost:3002/riddles`)
-    let pooledData = await dataInFile.json()
-    return pooledData
+    
+        const dataInFile = await fetch(`http://localhost:3002/riddles`)
+        let pooledData = await dataInFile.json()
+        return pooledData
+        
+
 }
 
 // this fetch return ine riddle bi given an id in the params 
@@ -55,6 +59,7 @@ export async function fetchToDeleteRiddleByQuestion(question) {
     }
 }
 
+// players api
 
 export async function CreateNewPlayer(name) {
     try {
@@ -80,8 +85,25 @@ export async function CheckIfExistInFile(name) {
     return await res.json()
 
     // console.log(resultId);
-  
-    
+
+
+
+}
+
+export async function addToPlayerScore(player, riddelid,time) {
+    const sendBody = {
+        id: player.id,
+        riddelid: riddelid,
+        solvetime: time
+    }
+  await fetch('http://localhost:3002/player/addScore', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(sendBody)
+});
+
 
 }
 // const res = await CheckIfExistInFile("shuki");

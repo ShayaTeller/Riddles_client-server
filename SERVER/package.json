@@ -4,16 +4,17 @@
   "main": "ServerApp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch ServerApp.js"
+    "start": "node --watch --env-file=.env ServerApp.js",
+    "dev": "node --watch ServerApp.js"
   },
   "author": "",
   "type": "module",
   "license": "ISC",
-  "description": "",
+  "description": "Server side for Riddles app",
   "dependencies": {
     "@supabase/supabase-js": "^2.52.0",
-    "dotenv": "^17.2.0",
-    "express": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "mongodb": "^6.17.0",
     "mysql2": "^3.14.2",
     "sequelize": "^6.37.7"
