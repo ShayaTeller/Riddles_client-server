@@ -1,23 +1,27 @@
 import PromptSync from 'prompt-sync';
 import { playGame } from './game.js'
 import { askForRiddle } from './createRiddel.js'
-import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById, fetchToDeleteRiddleByQuestion } from './api.js'
+import { fetchNewRiddle, fetchToReadRiddleDB, fetchToReadRiddleById, fetchToDeleteRiddleByQuestion, CreateNewPlayerAndPassword,loginPlayerAndPassword } from './api.js'
 
 
 export async function authenticationMenu() {
     try {
+        let userName, password
         const prompt = PromptSync();
         const value = prompt(`welcome to riddles system:\n press:\n1. to login\n2. to singup\n3. to Play as a guest`)
         switch (value) {
             case "1":
-
-                let userName = prompt(`enter your user name: `)
-                let password = prompt(`enter your password: `)
+                userName = prompt(`enter your user name: `)
+                password = prompt(`enter your password: `)
+               const result = await loginPlayerAndPassword(userName,password);
+               console.log(result)
                 break;
             case "2":
                 console.log('welcome!')
                 userName = prompt(`enter your user name: `)
-                password = prompt(`enter a password`)
+                password = prompt(`enter a password: `)
+                const id = await CreateNewPlayerAndPassword( userName, password);
+                console.log(id)
                 break;
             case "3":
                 await playGame();
@@ -30,6 +34,7 @@ export async function authenticationMenu() {
 
 
     } catch (error) {
+        console.error('Error in authentication menu:', error);
 
     }
 

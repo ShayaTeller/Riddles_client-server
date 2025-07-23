@@ -19,6 +19,26 @@ export async function creatNewPlayer(UserName) {
     }
 }
 
+    
+
+
+export async function creatNewPlayerAndPassword(UserName, password) {
+    try {
+        const { data, error } = await conn.from('players')
+            .insert({ username: UserName, password: password })
+            .select('id');
+
+        console.log(data)
+        if (data === null) { return 'user exsist try to login' };
+        if (error){ console.log('insert to db fiald')}
+        return data;
+
+    } catch (error) {
+        return error;
+
+    }
+}
+
 export async function getAllPlayers() {
     const { data, error } = await conn.from('players').select("*");
     return data;
@@ -72,11 +92,11 @@ export async function getBestTimeById(ID) {
 // }
 
 
-export async function getPlayerId(name) {
+export async function getPlayerId(username) {
     const { data, error } = await conn
         .from('players')
-        .select('id')
-        .eq('username', name)
+        .select('password')
+        .eq('username', username)
         .single();
     return data;
 
@@ -88,6 +108,21 @@ export async function getPlayerId(name) {
     return data ? data.id : null;
 }
 
+export async function getPlayerPassword(username) {
+    const { data, error } = await conn
+        .from('players')
+        .select('password')
+        .eq('username', username)
+        .single();
+    
+
+    if (error) {
+        console.error('DB Error:', error);
+        return null;
+    }
+
+    return data;
+}
 
 // await deletePlayerByName("david");
 

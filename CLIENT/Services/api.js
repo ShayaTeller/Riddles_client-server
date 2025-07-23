@@ -67,7 +67,7 @@ export async function fetchToDeleteRiddleByQuestion(question) {
 // יוצר שחקן חדש 
 
 export async function CreateNewPlayer(name) {
-    const jsonName = {"name":name}
+    const jsonName = { "name": name }
     try {
         const res = await fetch('http://localhost:3002/player', {
             method: "POST",
@@ -81,10 +81,43 @@ export async function CreateNewPlayer(name) {
         return error
 
     }
-
 }
 
+export async function CreateNewPlayerAndPassword(username, password) {
+    const jsonName = { "username": username, "password": password }
+    console.log(jsonName)
+    try {
+        const res = await fetch('http://localhost:3002/player/signup', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonName)
+        })
+        return res.text()
+    } catch (error) {
+        return error
 
+    }
+}
+
+export async function loginPlayerAndPassword(username, password) {
+    const jsonName = { "username": username, "password": password }
+    console.log(jsonName)
+    try {
+        const res = await fetch('http://localhost:3002/player/login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonName)
+        })
+        return res.text()
+    } catch (error) {
+        return error
+
+    }
+}
 // בודק האם שחקן קיים במערכת 
 export async function CheckIfExistInFile(name) {
     // let jsonName = {"name":name}
@@ -112,6 +145,7 @@ export async function addToPlayerScore(player, riddle, time) {
         body: JSON.stringify(sendBody)
     });
 }
+
 
 
 // await addToPlayerScore(1,5,2)
