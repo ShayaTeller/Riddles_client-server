@@ -3,17 +3,18 @@ import { resolveAny } from "dns"
 
 
 // this fetch return all riddles
+// מביא את כל החידות 
 export async function fetchToReadRiddleDB() {
-    
-        const dataInFile = await fetch(`http://localhost:3002/riddles`)
-        let pooledData = await dataInFile.json()
-        return pooledData
-        
+
+    const dataInFile = await fetch(`http://localhost:3002/riddles`)
+    let pooledData = await dataInFile.json()
+    return pooledData
+
 
 }
 
 // this fetch return ine riddle bi given an id in the params 
-
+// מביא חידה לפי ID 
 export async function fetchToReadRiddleById(id) {
     let data = await fetch(`http://localhost:3000/riddles/${id}`)
     data = await data.json()
@@ -22,7 +23,7 @@ export async function fetchToReadRiddleById(id) {
 
 }
 
-
+// שולח חידה חדשה 
 // this send an new riddle , the body needs to להכיל an riddle-object and write  tham to the DB txt
 export async function fetchNewRiddle(newriddle) {
     await fetch("http://localhost:3002/riddles", {
@@ -34,6 +35,7 @@ export async function fetchNewRiddle(newriddle) {
     })
 }
 
+// שולח עדכון לחידה 
 export async function fetchToUpdateRiddleById(id, UPriddle) {
     fetch(`http://localhost:3000/riddles/${id}`, {
         method: "PUT",
@@ -44,6 +46,7 @@ export async function fetchToUpdateRiddleById(id, UPriddle) {
     })
 }
 
+// מוחק חידה לפי הQUESTION
 export async function fetchToDeleteRiddleByQuestion(question) {
     try {
         const res = await fetch(`http://localhost:3002/riddles/${question}`, {
@@ -61,15 +64,19 @@ export async function fetchToDeleteRiddleByQuestion(question) {
 
 // players api
 
+// יוצר שחקן חדש 
+
 export async function CreateNewPlayer(name) {
+    const jsonName = {"name":name}
     try {
-        const res = await fetch(`http//localhost:3002/player/${name}`, {
+        const res = await fetch('http://localhost:3002/player', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: name
+            body: JSON.stringify(jsonName)
         })
+        return res.json('id')
     } catch (error) {
         return error
 
@@ -78,9 +85,9 @@ export async function CreateNewPlayer(name) {
 }
 
 
-
+// בודק האם שחקן קיים במערכת 
 export async function CheckIfExistInFile(name) {
-
+    // let jsonName = {"name":name}
     const res = await fetch(`http://localhost:3002/player/${name}`);
     return await res.json()
 
@@ -90,22 +97,24 @@ export async function CheckIfExistInFile(name) {
 
 }
 
-export async function addToPlayerScore(player, riddelid,time) {
+
+export async function addToPlayerScore(player, riddle, time) {
     const sendBody = {
-        id: player.id,
-        riddelid: riddelid,
+        id: player,
+        riddelid: riddle,
         solvetime: time
     }
-  await fetch('http://localhost:3002/player/addScore', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(sendBody)
-});
-
-
+    await fetch('http://localhost:3002/player/addScore', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendBody)
+    });
 }
+
+
+// await addToPlayerScore(1,5,2)
 // const res = await CheckIfExistInFile("shuki");
 // console.log( res)
 
@@ -118,3 +127,5 @@ export async function addToPlayerScore(player, riddelid,time) {
 
 
 // http://localhost:3002/player/shuki
+// const name = `shaya`
+// console.log(await CheckIfExistInFile(name));

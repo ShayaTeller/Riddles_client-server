@@ -1,9 +1,12 @@
 import Riddle from '../clases/riddle.js';
 import Player from '../clases/player.js';
 import PromptSync from 'prompt-sync';
-// import { CheckIfExistInFile } from './playercheck.js'
-import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer,addToPlayerScore } from './api.js'
+// import { CheckIfExistInFile } from './api.js'
+import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore } from './api.js'
+// import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore } from './api.js'
 // ask the user what level he whant
+
+
 export async function playGame() {
     const prompt = PromptSync();
 
@@ -23,7 +26,7 @@ export async function playGame() {
 
     // const allRiddles = await readRiddleDB()
     let allRiddles = await fetchToReadRiddleDB()
-    console.log(await allRiddles)
+    // console.log(await allRiddles)
     // initilyze the riddles list filterd by riddle-level
     let filtertRiddleList = allRiddles.filter((item) => item.level === level);
     console.log(filtertRiddleList)
@@ -47,13 +50,23 @@ export async function playGame() {
         riddle.ask(start);
         let endtime = Date.now();
         const time = player.recordTime(start, endtime);
-        await addToPlayerScore(player,riddle._id,time)
+        const riddelid = riddle.id
+        const playerid = player.id.id
+        try {
+            const result =await addToPlayerScore(playerid, riddelid, time)
+            // console.log(result)
+        } catch (error) {
+            // console.log(error)
+        }
+        // console.log(riddle)
+        // console.log(`playerID:${playerid}, riddleID:${riddelid}, time: ${time}`)
+
     })
 
 
 
     player.lowestTimeCheck()
-    console.log(player)
+    // console.log(player)
     // await writePlay/r(player)
 
     console.log(`hello pleyr: ${player.name}\nyou win!\nlook of your information:`)
@@ -67,11 +80,21 @@ export async function playGame() {
 
 
 
-    async function playerForGame(name) {
-        let id = await CheckIfExistInFile(name)
-        if (await id == false) {
-            await CreateNewPlayer(name);
-            id = await CheckIfExistInFile(name);
-        }
-        return new Player(name,id);
+async function playerForGame(name) {
+    let id = await CheckIfExistInFile(name)
+    console.log(id)
+    if ( id === false) {
+        const p = await CreateNewPlayer(name);
+        console.log(p)
+        id = await CheckIfExistInFile(name);
+        console.log(id)
     }
+    return new Player(name, id);
+}
+
+
+
+// const playertest = await CreateNewPlayer("iddii");
+// const playertest = await playerForGame("pppp8pp");
+
+// console.log(playertest.id);

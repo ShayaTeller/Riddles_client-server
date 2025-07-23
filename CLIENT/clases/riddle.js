@@ -4,10 +4,10 @@ import PromptSync from 'prompt-sync';
 export default class Riddle {
     // the constractor thaks a object 
     constructor(riddle) {
-            this.level = riddle.level,
-            this.question = riddle.question,
-            this.answer = riddle.answer
-            this.id = riddle._id;
+        this.id = riddle._id;
+        this.level = riddle.level,
+        this.question = riddle.question,
+        this.answer = riddle.answer
     }
 
 
@@ -21,5 +21,6 @@ export default class Riddle {
                 console.log('Wrong answer, try again.');
             }
         }
+        console.log('good answer!')
     }
 }

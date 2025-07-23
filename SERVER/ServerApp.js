@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 
 
 server.use(express.json());
-server.use('/', (req, res,next) => {
+server.use('/', (req, res, next) => {
     console.log(req.method, req.url);
     next();
 })
@@ -20,7 +20,7 @@ server.get('/', (req, res) => {
 })
 
 server.use('/', riddlesRouter);
-server.use('/',playerRouter );
+server.use('/', playerRouter);
 
 // the server is "on", 
 server.listen(PORT, () => {

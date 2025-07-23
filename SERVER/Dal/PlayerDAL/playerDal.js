@@ -4,9 +4,19 @@ const conn = await PlayersDB();
 
 
 export async function creatNewPlayer(UserName) {
+    try {
+        const { data, error } = await conn.from('players')
+            .insert({ username: UserName })
+            .select('id');
+        console.log(data)
+        if (data == null) { return 'user name exsist in database chooce another username' };
+        if (error) console.error('insert to db fiald')
+        return data;
 
-    const { data, error } = await conn.from('players').insert({ username: UserName }).select('id');
-    return error || data[0]['id'];
+    } catch (error) {
+        return error;
+
+    }
 }
 
 export async function getAllPlayers() {
@@ -23,7 +33,7 @@ export async function getPlayerByName(name) {
 
 export async function writeToPlayerScores(playerID, riddelID, solveTime) {
     const { data, error } = await conn.from('player_scores').insert({ player_id: playerID, riddle_id: riddelID, time_to_solve: solveTime }).select();
-    console.log(error)
+    // console.log(data)
 
 }
 
@@ -42,16 +52,17 @@ export async function checkIfExsist(name) {
     }
 }
 
-export async function  deletePlayerByName(name) {
-    const {data,error} = await conn.from('players').delete().eq('username',name)
+export async function deletePlayerByName(name) {
+    const { data, error } = await conn.from('players').delete().eq('username', name)
 }
 
-export async function  getBestTimeById(ID) {
-    const {data,error} = await conn.from('players').select('best_time').eq('id',ID);
+export async function getBestTimeById(ID) {
+    const { data, error } = await conn.from('players').select('best_time').eq('id', ID);
     console.log(data[0]['best_time'])
-    
+
 }
 
+// await getBestTimeById(62);
 
 // let result = await checkIfExsist("pini");
 // if(result==true){
@@ -67,7 +78,7 @@ export async function getPlayerId(name) {
         .select('id')
         .eq('username', name)
         .single();
-        return data;
+    return data;
 
     if (error) {
         console.error('DB Error:', error);
@@ -77,7 +88,7 @@ export async function getPlayerId(name) {
     return data ? data.id : null;
 }
 
-    
+
 // await deletePlayerByName("david");
 
 

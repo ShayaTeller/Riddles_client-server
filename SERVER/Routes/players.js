@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllPlayers, creatNewPlayer, checkIfExsist, getPlayerId } from "../Dal/PlayerDAL/playerDal.js";
+import { getAllPlayers, creatNewPlayer, checkIfExsist, getPlayerId, writeToPlayerScores } from "../Dal/PlayerDAL/playerDal.js";
 
 const router = express.Router();
 
@@ -29,11 +29,12 @@ router.get('/players', async (req, res) => {
 
 router.get('/player/:name', async (req, res) => {
     const name = req.params.name;
+    console.log(name)
     const playerId = await getPlayerId(name);
 
     if (playerId) {
-        console.log('Player ID:', playerId);
-        res.send(playerId); // להחזיר מחרוזת אם צריך
+        // console.log('Player ID:', playerId);
+        res.send(playerId);
     } else {
         res.send(false);
     }
@@ -43,17 +44,20 @@ router.get('/player/:name', async (req, res) => {
 // this endpoint create a new player 
 router.post('/player', async (req, res) => {
     const Name = req.body.name;
+    // console.log(Name)
     const id = await creatNewPlayer(Name);
     res.json(id)
 });
 
 
 router.post('/player/addScore', async (req, res) => {
-    const playerid = req.body.id;
-    const riddelid = req.body.riddelId;
-    const solvetime = req.body.time;
-    const result = await writeToPlayerScores(Name);
-    res.json()
+    console.log(req.body);
+    const id = req.body.id
+    const riddelid = req.body.riddelid
+    const solvetime = req.body.solvetime
+
+    const result = await writeToPlayerScores(id,riddelid,solvetime);
+    res.send('succes')
 });
 
 
