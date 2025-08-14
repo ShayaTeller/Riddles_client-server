@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Game System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .menu {
+            display: none;
+        }
+
+        .menu.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+            backdrop-filter: blur(5px);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .back-btn {
+            background: rgba(255, 100, 100, 0.3);
+            border-color: rgba(255, 100, 100, 0.5);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 100, 100, 0.5);
+        }
+
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+            display: none;
+        }
+
+        .result.error {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+
+        .riddles-list {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .riddle-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧩 Riddle Game</h1>
+
+        <!-- Authentication Menu -->
+        <div id="authMenu" class="menu active">
+            <h2>Welcome to Riddle System</h2>
+            <button class="btn" onclick="showLogin()">🔑 Login</button>
+            <button class="btn" onclick="showSignup()">📝 Sign Up</button>
+            <button class="btn" onclick="playAsGuest()">👤 Play as Guest</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginMenu" class="menu">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
+            <button class="btn" onclick="login()">Login</button>
+            <button class="btn back-btn" onclick="showAuthMenu()">Back</button>
+            <div id="loginResult" class="result"></div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupMenu" class="menu">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="signupUsername">Username:</label>
+                <input type="text" id="signupUsername" placeholder="Choose a username">
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" placeholder="Choose a password">
+            </div>
+            <button class="btn" onclick="signup()">Sign Up</button>
+            <button class="btn back-btn" onclick="showAuthMenu()">Back</button>
+            <div id="signupResult" class="result"></div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="menu">
+            <h2>Main Menu</h2>
+            <button class="btn" onclick="playGame()">🎮 Play the Game</button>
+            <button class="btn" onclick="showCreateRiddle()">➕ Create New Riddle</button>
+            <button class="btn" onclick="showAllRiddles()">📖 Read All Riddles</button>
+            <button class="btn" onclick="showDeleteRiddle()">🗑️ Delete a Riddle</button>
+            <button class="btn" onclick="updateRiddle()">✏️ Update Riddle</button>
+            <button class="btn" onclick="viewLeaderboard()">🏆 View Leaderboard</button>
+            <button class="btn back-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Create Riddle Form -->
+        <div id="createRiddleMenu" class="menu">
+            <h2>Create New Riddle</h2>
+            <div class="form-group">
+                <label for="riddleQuestion">Question:</label>
+                <textarea id="riddleQuestion" rows="3" placeholder="Enter your riddle question"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="riddleAnswer">Answer:</label>
+                <input type="text" id="riddleAnswer" placeholder="Enter the answer">
+            </div>
+            <button class="btn" onclick="createRiddle()">Create Riddle</button>
+            <button class="btn back-btn" onclick="showMainMenu()">Back</button>
+            <div id="createRiddleResult" class="result"></div>
+        </div>
+
+        <!-- All Riddles Display -->
+        <div id="riddlesDisplay" class="menu">
+            <h2>All Riddles</h2>
+            <div id="riddlesList" class="riddles-list"></div>
+            <button class="btn back-btn" onclick="showMainMenu()">Back</button>
+        </div>
+
+        <!-- Delete Riddle Form -->
+        <div id="deleteRiddleMenu" class="menu">
+            <h2>Delete Riddle</h2>
+            <div class="form-group">
+                <label for="deleteQuestion">Question to Delete:</label>
+                <input type="text" id="deleteQuestion" placeholder="Enter the question to delete">
+            </div>
+            <button class="btn" onclick="deleteRiddle()">Delete</button>
+            <button class="btn back-btn" onclick="showMainMenu()">Back</button>
+            <div id="deleteResult" class="result"></div>
+        </div>
+
+        <!-- Game Area -->
+        <div id="gameArea" class="menu">
+            <h2>🎮 Playing Game</h2>
+            <div id="gameContent">
+                <p>Game functionality will be implemented here</p>
+            </div>
+            <button class="btn back-btn" onclick="showMainMenu()">Back to Menu</button>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let authToken = localStorage.getItem('authToken');
+
+        // API Configuration
+        const API_BASE = 'http://localhost:3002'; // שנה את זה לכתובת השרת שלך
+
+        // Utility functions
+        function showMenu(menuId) {
+            document.querySelectorAll('.menu').forEach(menu => {
+                menu.classList.remove('active');
+            });
+            document.getElementById(menuId).classList.add('active');
+        }
+
+        function showResult(resultId, message, isError = false) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.textContent = message;
+            resultDiv.className = isError ? 'result error' : 'result';
+            resultDiv.style.display = 'block';
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Navigation functions
+        function showAuthMenu() {
+            showMenu('authMenu');
+        }
+
+        function showLogin() {
+            showMenu('loginMenu');
+        }
+
+        function showSignup() {
+            showMenu('signupMenu');
+        }
+
+        function showMainMenu() {
+            showMenu('mainMenu');
+        }
+
+        function showCreateRiddle() {
+            showMenu('createRiddleMenu');
+        }
+
+        function showDeleteRiddle() {
+            showMenu('deleteRiddleMenu');
+        }
+
+        // API calls (replace these with your actual API endpoints)
+        async function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username || !password) {
+                showResult('loginResult', 'Please fill in all fields', true);
+                return;
+            }
+
+            try {
+                // First try with token if exists
+                if (authToken) {
+                    const tokenResponse = await fetch(`${API_BASE}/player/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${authToken}`
+                        },
+                        body: JSON.stringify({ username, password, token: authToken })
+                    });
+
+                    if (tokenResponse.ok) {
+                        const result = await tokenResponse.json();
+                        currentUser = result.user;
+                        showResult('loginResult', 'Login successful!');
+                        setTimeout(() => showMainMenu(), 1500);
+                        return;
+                    }
+                }
+
+                // Login with username/password
+                const response = await fetch(`${API_BASE}/player/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    authToken = result.token;
+                    localStorage.setItem('authToken', authToken);
+                    currentUser = result.user;
+                    showResult('loginResult', 'Login successful!');
+                    setTimeout(() => showMainMenu(), 1500);
+                } else {
+                    const error = await response.json();
+                    showResult('loginResult', error.message || 'Login failed', true);
+                }
+            } catch (error) {
+                showResult('loginResult', 'Connection error', true);
+                console.error('Login error:', error);
+            }
+        }
+
+        async function signup() {
+            const username = document.getElementById('signupUsername').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (!username || !password) {
+                showResult('signupResult', 'Please fill in all fields', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/player/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showResult('signupResult', 'Account created successfully!');
+                    setTimeout(() => showLogin(), 1500);
+                } else {
+                    const error = await response.json();
+                    showResult('signupResult', error.message || 'Signup failed', true);
+                }
+            } catch (error) {
+                showResult('signupResult', 'Connection error', true);
+                console.error('Signup error:', error);
+            }
+        }
+
+        async function createRiddle() {
+            const question = document.getElementById('riddleQuestion').value;
+            const answer = document.getElementById('riddleAnswer').value;
+
+            if (!question || !answer) {
+                showResult('createRiddleResult', 'Please fill in all fields', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/riddles`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ question, answer })
+                });
+
+                if (response.ok) {
+                    showResult('createRiddleResult', 'Riddle created successfully!');
+                    document.getElementById('riddleQuestion').value = '';
+                    document.getElementById('riddleAnswer').value = '';
+                } else {
+                    const error = await response.json();
+                    showResult('createRiddleResult', error.message || 'Failed to create riddle', true);
+                }
+            } catch (error) {
+                showResult('createRiddleResult', 'Connection error', true);
+                console.error('Create riddle error:', error);
+            }
+        }
+
+        async function showAllRiddles() {
+            try {
+                const response = await fetch(`${API_BASE}/riddles`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const riddles = await response.json();
+                    const riddlesList = document.getElementById('riddlesList');
+                    riddlesList.innerHTML = '';
+
+                    riddles.forEach((riddle, index) => {
+                        const riddleDiv = document.createElement('div');
+                        riddleDiv.className = 'riddle-item';
+                        riddleDiv.innerHTML = `
+                            <strong>Q${index + 1}:</strong> ${riddle.question}<br>
+                            <strong>Answer:</strong> ${riddle.answer}
+                        `;
+                        riddlesList.appendChild(riddleDiv);
+                    });
+
+                    showMenu('riddlesDisplay');
+                } else {
+                    const error = await response.json();
+                    alert(error.message || 'Failed to fetch riddles');
+                }
+            } catch (error) {
+                alert('Connection error');
+                console.error('Fetch riddles error:', error);
+            }
+        }
+
+        async function deleteRiddle() {
+            const question = document.getElementById('deleteQuestion').value;
+
+            if (!question) {
+                showResult('deleteResult', 'Please enter a question to delete', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/riddles`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ question })
+                });
+
+                if (response.ok) {
+                    showResult('deleteResult', 'Riddle deleted successfully!');
+                    document.getElementById('deleteQuestion').value = '';
+                } else {
+                    const error = await response.json();
+                    showResult('deleteResult', error.message || 'Failed to delete riddle', true);
+                }
+            } catch (error) {
+                showResult('deleteResult', 'Connection error', true);
+                console.error('Delete riddle error:', error);
+            }
+        }
+
+        function playAsGuest() {
+            currentUser = { role: 'guest' };
+            showMainMenu();
+        }
+
+        function playGame() {
+            showMenu('gameArea');
+            // כאן תוסיף את לוגיקת המשחק
+        }
+
+        function updateRiddle() {
+            alert('Update riddle functionality - to be implemented');
+        }
+
+        function viewLeaderboard() {
+            alert('Leaderboard functionality - to be implemented');
+        }
+
+        function logout() {
+            currentUser = null;
+            authToken = null;
+            localStorage.removeItem('authToken');
+            showAuthMenu();
+        }
+
+        // Initialize
+        window.onload = function() {
+            if (authToken) {
+                // אפשר לנסות login אוטומטי עם הtoken
+                console.log('Found existing token');
+            }
+        };
+    </script>
+</body>
+</html>

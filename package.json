@@ -1,0 +1,23 @@
+{
+  "name": "riddles-game-project",
+  "version": "1.0.0",
+  "description": "giddels game project client and server",
+  "type": "module",
+  "scripts": {
+    "install-all": "cd CLIENT && npm install && cd ../SERVER && npm install",
+    "start-client": "cd CLIENT && npm start",
+    "start-server": "cd SERVER && npm start",
+    "dev-server": "cd SERVER && npm run dev",
+    "start-both": "concurrently \"npm run start-server\" \"npm run start-client\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "CLIENT",
+    "SERVER"
+  ],
+  "keywords": ["riddles", "game", "javascript", "fullstack"],
+  "author": "",
+  "license": "ISC"
+}

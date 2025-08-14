@@ -1,26 +1,31 @@
 import express from 'express'
 import riddlesRouter from './routes/riddles.js'
-// import playerRouter from './routes/players.js';
+import playerRouter from './routes/players.js';
+import bcrypt from 'bcrypt'
+import dotenv from 'dotenv';
+import tokerCreator from './Authentication/tokenHandler.js'
+import playerRouter from '../Routes/players.js';
+dotenv.config();
+
+
 
 
 const server = express();
-const PORT = 3002;
+const PORT = process.env.PORT;
+
 
 
 server.use(express.json());
-server.use('/', (req, res,next) => {
-    console.log(req.method, req.url, res.statusCode);
+
+server.use('/', (req, res, next) => {
+    console.log(req.method, req.url);
     next();
 })
 
-server.get('/', (req, res) => {
-    res.end("welcome")
-})
-
 server.use('/', riddlesRouter);
-server.use('/',playerRouter );
+server.use('/', playerRouter);
 
-// the server is "on", 
 server.listen(PORT, () => {
     console.log(`listening on port: ${PORT}`)
 })
+

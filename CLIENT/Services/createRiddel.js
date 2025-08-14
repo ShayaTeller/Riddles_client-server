@@ -1,19 +1,18 @@
+export async function askForRiddle(input) {
+    console.log('Creating a new riddle...');
+    
+    const name = await input.ask('Enter riddle name: ');
+    const taskDescription = await input.ask('Enter the question: ');
+    const difficulty = await input.getDifficulty();
+    const correctAnswer = await input.ask('Enter correct answer: ');
+    const timeLimit = await input.ask('Enter time limit (seconds, default 30): ');
 
-export function askForRiddle() {
-
-    const prompt = PromptSync();
-    const name = prompt("enter name: ");
-    const taskDescription = prompt("enter taskDescription: ");
-    const difficulty = prompt("enter difficulty: ");
-    const correctAnswer = prompt("enter correctAnswer: ");
-    const timeLimit = prompt("enter timeLimit: ");
     return {
         id: 0,
         name: name,
         difficulty: difficulty,
         taskDescription: taskDescription,
         correctAnswer: correctAnswer,
-        timeLimit: timeLimit
-
-    }
-};
+        timeLimit: parseInt(timeLimit) || 30
+    };
+}

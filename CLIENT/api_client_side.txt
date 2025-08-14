@@ -1,0 +1,97 @@
+
+
+// this fetch return all riddles
+export async function fetchToReadRiddleDB() {
+    const dataInFile = await fetch(`http://localhost:3002/riddles`)
+    let pooledData = await dataInFile.json()
+    return pooledData
+}
+
+// this fetch return ine riddle bi given an id in the params 
+
+export async function fetchToReadRiddleById(id) {
+    let data = await fetch(`http://localhost:3000/riddles/${id}`)
+    data = await data.json()
+    return data
+    // let pooledData = await returendRiddle
+
+}
+
+
+// this send an new riddle , the body needs to להכיל an riddle-object and write  tham to the DB txt
+export async function fetchNewRiddle(newriddle) {
+    await fetch("http://localhost:3002/riddles", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: newriddle
+    })
+}
+
+export async function fetchToUpdateRiddleById(id, UPriddle) {
+    fetch(`http://localhost:3000/riddles/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(UPriddle)
+    })
+}
+
+export async function fetchToDeleteRiddleByQuestion(question) {
+    try {
+        const res = await fetch(`http://localhost:3002/riddles/${question}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        return res;
+    } catch (error) {
+        console.log(Error(error.massage))
+
+    }
+}
+
+
+export async function CreateNewPlayer(name) {
+    try {
+        const res = await fetch(`http//localhost:3002/player/${name}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: name
+        })
+    } catch (error) {
+        return error
+
+    }
+
+}
+
+
+
+export async function CheckIfExistInFile(name) {
+
+    const res = await fetch(`http://localhost:3002/player/${name}`);
+    return await res.json()
+
+    // console.log(resultId);
+  
+    
+
+}
+// const res = await CheckIfExistInFile("shuki");
+// console.log( res)
+
+// console.log(await fetchToReadRiddleDB())
+// console.log(await fetchToReadRiddleById(2))
+// fetchToDeleteRiddleById(4);
+
+
+
+
+
+// http://localhost:3002/player/shuki
