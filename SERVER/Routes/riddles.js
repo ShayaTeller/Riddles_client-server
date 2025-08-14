@@ -1,25 +1,18 @@
 import express from 'express';
 import { insertNewRiddel, getAllRiddeles, deletedByQuestion } from '../Dal/riddeslDal.js'
-
+import { tokenVerifier, authorizeRoles } from '../Authentication/tokenHandler.js'
+import {addNewRiddle} from '../controlers/riddleCtrl.js'
 const router = express.Router();
 
 // getting all riddels
 router.get('/riddles', async (req, res) => {
     let data = await getAllRiddeles()
-    data = JSON.stringify(data);
-    res.send(data)
+    res.json(data)
 });
 
 // create a new riddle with a Post method
 router.post('/riddles', async (req, res) => {
-    try {
-        const riddle = await req.body;
-        let newer = await insertNewRiddel(await riddle);
-        res.send("success");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Internal Server Error");
-    }
+    res.send(await addNewRiddle(req));
 });
 
 router.delete('/riddles/:Question', async (req, res) => {

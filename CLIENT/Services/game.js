@@ -2,7 +2,7 @@ import Riddle from '../clases/riddle.js';
 import Player from '../clases/player.js';
 import PromptSync from 'prompt-sync';
 // import { CheckIfExistInFile } from './api.js'
-import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore } from './api.js'
+import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore ,updeatLowestTime} from './api.js'
 // import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore } from './api.js'
 // ask the user what level he whant
 
@@ -25,16 +25,14 @@ export async function playGame() {
 
 
     // const allRiddles = await readRiddleDB()
-    let allRiddles = await fetchToReadRiddleDB()
-    // console.log(await allRiddles)
+    let allRiddles = [await fetchToReadRiddleDB()]
+    console.log(await allRiddles)
     // initilyze the riddles list filterd by riddle-level
     let filtertRiddleList = allRiddles.filter((item) => item.level === level);
-    console.log(filtertRiddleList)
+    // console.log(filtertRiddleList)
     //  allRiddles = allRiddles.j
 
-    // taks user name
     const name = prompt(`enter your name!`);
-    // initilyze a new pleyer (instance) whit "name"
     const player = await playerForGame(name);
 
 
@@ -52,6 +50,7 @@ export async function playGame() {
         const time = player.recordTime(start, endtime);
         const riddelid = riddle.id
         const playerid = player.id.id
+        console.log(time)
         try {
             const result =await addToPlayerScore(playerid, riddelid, time)
             // console.log(result)
@@ -65,7 +64,9 @@ export async function playGame() {
 
 
 
-    player.lowestTimeCheck()
+    let lwoesttime = player.lowestTimeCheck()
+    await updeatLowestTime(player,lwoesttime);
+
     // console.log(player)
     // await writePlay/r(player)
 

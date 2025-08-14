@@ -1,16 +1,14 @@
 import { time } from "console"
 import { resolveAny } from "dns"
+// import {globalApi} from './apiToken.js'
 
 
 // this fetch return all riddles
 // מביא את כל החידות 
 export async function fetchToReadRiddleDB() {
-
-    const dataInFile = await fetch(`http://localhost:3002/riddles`)
-    let pooledData = await dataInFile.json()
+    const dataInFile =  await fetch('http://localhost:3002/riddles')
+    let pooledData = await dataInFile.json();
     return pooledData
-
-
 }
 
 // this fetch return ine riddle bi given an id in the params 
@@ -87,7 +85,7 @@ export async function CreateNewPlayerAndPassword(username, password) {
     const jsonName = { "username": username, "password": password }
     console.log(jsonName)
     try {
-        const res = await fetch('http://localhost:3002/player/signup', {
+        const res = await fetch('http://localhost:3002/player/singup', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -103,8 +101,8 @@ export async function CreateNewPlayerAndPassword(username, password) {
 
 export async function loginPlayerAndPassword(username, password) {
     const jsonName = { "username": username, "password": password }
-    console.log(jsonName)
-    try {
+    // console.log(jsonName)
+ 
         const res = await fetch('http://localhost:3002/player/login', {
             method: "POST",
             headers: {
@@ -112,17 +110,27 @@ export async function loginPlayerAndPassword(username, password) {
             },
             body: JSON.stringify(jsonName)
         })
-        return res.text()
-    } catch (error) {
-        return error
-
-    }
+        return res.json() 
 }
+export async function loginPlayerAndPasswordAndToken(username, password,token) {
+    const jsonName = { "username": username, "password": password,"token":token }
+    console.log(jsonName)
+ 
+        const res = await fetch('http://localhost:3002/player/login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(jsonName)
+        })
+        return res.json() 
+}
+
 // בודק האם שחקן קיים במערכת 
 export async function CheckIfExistInFile(name) {
     // let jsonName = {"name":name}
     const res = await fetch(`http://localhost:3002/player/${name}`);
-    return await res.json()
+    return await res.text()
 
     // console.log(resultId);
 
@@ -146,6 +154,21 @@ export async function addToPlayerScore(player, riddle, time) {
     });
 }
 
+export async function updeatLowestTime(player,lowesTime) {
+    console.log(player,lowesTime)
+        const sendBody = {
+        id: player.id,
+        lowesTime: lowesTime,
+    }
+    await fetch('http://localhost:3002/player/updateLTime', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(sendBody)
+    });
+    
+}
 
 
 // await addToPlayerScore(1,5,2)

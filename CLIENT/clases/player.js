@@ -42,8 +42,10 @@ export default class Player {
         if (this.lowestTime === 0 || result < this.lowestTime) {
             this.lowestTime = result;
             console.log(`✅ your lowest time is updated: ${this.lowestTime / 1000} seconds`);
+            return this.lowestTime
         } else {
             console.log(`ℹ️  your time now: ${result / 1000} seconds. lowest time remains: ${this.lowestTime / 1000} seconds`);
+            return this.lowestTime;
         }
     }
 }
