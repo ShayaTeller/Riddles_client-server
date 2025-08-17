@@ -5,25 +5,17 @@ import PromptSync from 'prompt-sync';
 import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore ,updeatLowestTime} from './api.js'
 // import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore } from './api.js'
 // ask the user what level he whant
+import InputHandler from './inputHandler.js'
+let input = new InputHandler();
 
 
-export async function playGame() {
-    const prompt = PromptSync();
+
+export async function playGame(input) {
 
     let level;
-    while (true) {
-        level = prompt('Choose difficulty: easy / medium / hard:');
-        level.toLowerCase();
-        if (level == `easy` | level == `medium` | level == `hard`) {
-            break;
-        }
-        else {
-            console.log(`Wrong answer, try again.(easy / medium / hard)`)
-            continue;
-        }
-    }
-
-
+    level = await input.getDifficulty()
+    console.log( level)
+    
     // const allRiddles = await readRiddleDB()
     let allRiddles = [await fetchToReadRiddleDB()]
     console.log(await allRiddles)
@@ -31,16 +23,18 @@ export async function playGame() {
     let filtertRiddleList = allRiddles.filter((item) => item.level === level);
     // console.log(filtertRiddleList)
     //  allRiddles = allRiddles.j
+    const name = await input.ask(`enter your name!`)
 
-    const name = prompt(`enter your name!`);
     const player = await playerForGame(name);
+    console.log(player)
+    
 
 
 
 
     // runing whit foreach of the correntRiddlelist, in each step he do:
     filtertRiddleList.forEach(async element => {
-        // console.log(element.question)
+        console.log(element.question)
         // create new instance of Riidle class
         const riddle = new Riddle(element);
         // const riddle = new Riddle(element.level,element.,element.answer);
@@ -65,7 +59,7 @@ export async function playGame() {
 
 
     let lwoesttime = player.lowestTimeCheck()
-    await updeatLowestTime(player,lwoesttime);
+    // await updeatLowestTime(player,lwoesttime);
 
     // console.log(player)
     // await writePlay/r(player)
@@ -99,3 +93,5 @@ async function playerForGame(name) {
 // const playertest = await playerForGame("pppp8pp");
 
 // console.log(playertest.id);
+
+playGame(input);

@@ -1,23 +1,23 @@
 import express from 'express';
-import { insertNewRiddel, getAllRiddeles, deletedByQuestion } from '../Dal/riddeslDal.js'
+import { insertNewRiddel, getAllRiddeles, deletedByQuestion } from '../Dal/riddlesDal.js'
 import { tokenVerifier, authorizeRoles } from '../Authentication/tokenHandler.js'
 import {addNewRiddle} from '../controlers/riddleCtrl.js'
 const router = express.Router();
 
 // getting all riddels
 router.get('/riddles', async (req, res) => {
-    let data = await getAllRiddeles()
-    res.json(data)
+    let data = await getAllRiddeles();
+    res.json(data);
 });
 
 // create a new riddle with a Post method
 router.post('/riddles', async (req, res) => {
-    res.send(await addNewRiddle(req));
+    res.send(await insertNewRiddel(req));
 });
 
-router.delete('/riddles/:Question', async (req, res) => {
-    res.send(await deletedByQuestion(req.params.Question));
-})
+router.delete('/riddles/:question', async (req, res) => {
+    res.send(await deletedByQuestion(req.params.question));
+});
 
 export default router;
 

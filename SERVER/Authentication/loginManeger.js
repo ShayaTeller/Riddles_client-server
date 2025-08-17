@@ -1,4 +1,4 @@
-import { creatNewPlayerAndPassword, getPlayerPassword, getPlayerByName } from '../Dal/playerDal.js';
+import { createNewPlayerWithPassword, getPlayerPassword, getPlayerByName } from '../Dal/playerDal.js';
 // import { tokenCreator,tokenVerifier } from './tokenHandler.js'
 import bcrypt from 'bcrypt';
 import { getToken } from './tokenHandler.js'
@@ -13,7 +13,7 @@ export async function singUp(req, res) {
         console.log(username, password, role)
         const hashpassword = await bcrypt.hash(password, 12)
         try {
-            const result = await creatNewPlayerAndPassword(username, hashpassword, role)
+            const result = await createNewPlayerWithPassword(username, hashpassword, role)
             if (result == 'succes') {
                 res.status(201).json({ message: "player created", result: result })
             }

@@ -40,13 +40,13 @@ export async function deleteone(collection,deleteValue,username) {
 // const data = update('players','best_time',60,'dudi');
 // console.log(await data)
 
-export async function creatNewPlayer(UserName, role) {
+export async function createNewPlayer(userName, role) {
     try {
         const { data, error } = await conn.from('players')
-            .insert({ username: UserName, role: role })
+            .insert({ username: userName, role: role })
             .select('id');
-        if (data == null) { return 'user name exsist in database chooce another username' };
-        if (error) console.error('insert to db fiald')
+        if (!data) { return 'Username exists in database, choose another username.' };
+        if (error) console.error('Insert to DB failed');
         return data;
 
     } catch (error) {
@@ -58,20 +58,19 @@ export async function creatNewPlayer(UserName, role) {
 
 
 
-export async function creatNewPlayerAndPassword(UserName, password, role) {
+export async function createNewPlayerWithPassword(userName, password, role) {
     try {
         const { data, error } = await conn.from('players')
-            .insert({ username: UserName, password: password, role: role })
+            .insert({ username: userName, password: password, role: role })
             .select('id');
 
-        console.log(data)
-        if (data === null) {
-            return 'user exsist try to login'
-        };
-        if (error) {
-            console.log('insert to db fiald')
+        console.log(data);
+        if (!data) {
+            return 'User exists, try to login.';
         }
-        else {
+        if (error) {
+            console.log('Insert to DB failed');
+        } else {
             return data;
         }
 
@@ -91,6 +90,8 @@ export async function getAllPlayers() {
     }
 }
 
+console.log(await getAllPlayers());
+
 export async function getPlayerByName(name) {
     const { data, error } = await conn.from('players').select("*").eq('username', name)
     return data || error;
@@ -98,8 +99,8 @@ export async function getPlayerByName(name) {
 
 
 
-export async function writeToPlayerScores(playerID, riddelID, solveTime) {
-    const { data, error } = await conn.from('player_scores').insert({ player_id: playerID, riddle_id: riddelID, time_to_solve: solveTime }).select();
+export async function writeToPlayerScores(playerID, riddleID, solveTime) {
+    const { data, error } = await conn.from('player_scores').insert({ player_id: playerID, riddle_id: riddleID, time_to_solve: solveTime }).select();
     // console.log(data)
 
 }
@@ -156,16 +157,17 @@ export async function updatePlayerBestTime(player, best_time) {
 export async function getPlayerId(username) {
     const { data, error } = await conn
         .from('players')
-        .select('password')
+        .select('id')
         .eq('username', username)
-        .single();
+        .single()
+        
     if (error) {
         console.error('DB Error:', error);
         return error.message;
     }
-
     return data
 }
+// console.log(await getPlayerId('shaya'));
 
 export async function getPlayerPassword(username) {
     const { data, error } = await conn

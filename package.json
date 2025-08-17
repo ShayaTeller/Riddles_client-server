@@ -17,7 +17,15 @@
     "CLIENT",
     "SERVER"
   ],
-  "keywords": ["riddles", "game", "javascript", "fullstack"],
+  "keywords": [
+    "riddles",
+    "game",
+    "javascript",
+    "fullstack"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "supertest": "^7.1.4"
+  }
 }
