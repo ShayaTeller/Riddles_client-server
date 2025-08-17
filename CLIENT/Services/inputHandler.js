@@ -27,7 +27,7 @@ class InputHandler {
             if (index >= 0 && index < options.length) {
                 return options[index];
             }
-            console.log('❌ Invalid choice, try again.');
+            console.log(' Invalid choice, try again.');
         }
     }
 

@@ -17,7 +17,7 @@ import {
 //     const prompt = PromptSync();
 //     console.clear();
 //     const value = prompt(
-//       `welcome to riddles system:\n press:\n1. to login\n2. to singup\n3. to Play as a guest`
+//       `welcome to riddles system:\n press:\n1. to login\n2. to signup\n3. to Play as a guest`
 //     );
 //     console.clear();
 //     switch (value) {

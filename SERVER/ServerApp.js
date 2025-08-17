@@ -1,10 +1,9 @@
 import express from 'express'
 import riddlesRouter from './routes/riddles.js'
-import playerRouter from './routes/players.js';
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv';
 import tokerCreator from './Authentication/tokenHandler.js'
-import playerRouter from '../Routes/players.js';
+import playerRouter from './routes/players.js';
 dotenv.config();
 
 

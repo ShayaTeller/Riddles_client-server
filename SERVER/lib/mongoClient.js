@@ -2,19 +2,14 @@ import { MongoClient } from "mongodb"
 import dotenv from 'dotenv';
 dotenv.config();
 
-const uri = process.env.MONGO_URI
-// console.log(uri)
+const uri = process.env.MONGO_URI;
 
-
-export const mongoclientdb = new MongoClient(uri);
-mongoclientdb.connect()
+export const mongoClientDb = new MongoClient(uri);
 try {
-    await mongoclientdb.connect();
+    await mongoClientDb.connect();
     console.log('Connected to MongoDB');
-
 } catch (err) {
     console.error('Error connecting to MongoDB:', err);
 }
 
-
-export default mongoclientdb
+export default mongoClientDb;

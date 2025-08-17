@@ -1,8 +1,8 @@
 import express from "express";
-import { getAllPlayers, creatNewPlayer, checkIfExsist, getPlayerId, writeToPlayerScores, updatePlayerBestTime } from "../Dal/playerDal.js";
+import { getAllPlayers, createNewPlayer, checkIfExsist, getPlayerId, writeToPlayerScores, updatePlayerBestTime } from "../Dal/playerDal.js";
 import { tokenCreator, tokenVerifier, verifyTokenOnly, authorizeRoles, checkExistingToken } from '../Authentication/tokenHandler.js'
 import { login, singUp } from '../Authentication/loginManeger.js'
-import { getPlayerByName, updatePlayerLtime, addNewPlayer } from '../controlers/playersCtrl.js'
+import { getPlayerByName, updatePlayerLtime, addNewPlayer, addPlayerScore } from '../controlers/playersCtrl.js'
 const router = express.Router();
 
 
@@ -13,6 +13,7 @@ router.get('/players', async (req, res) => {
 });
 
 router.get('/player/:name', async (req, res) => {
+    console.log(req.body)
     res.send(await getPlayerByName(req));
 });
 

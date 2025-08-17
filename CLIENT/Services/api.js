@@ -8,6 +8,7 @@ import { resolveAny } from "dns"
 export async function fetchToReadRiddleDB() {
     const dataInFile =  await fetch('http://localhost:3002/riddles')
     let pooledData = await dataInFile.json();
+    
     return pooledData
 }
 
@@ -55,7 +56,7 @@ export async function fetchToDeleteRiddleByQuestion(question) {
         })
         return res;
     } catch (error) {
-        console.log(Error(error.massage))
+    console.log(Error(error.message))
 
     }
 }
@@ -137,6 +138,8 @@ export async function CheckIfExistInFile(name) {
 
 
 }
+
+console.log(await CheckIfExistInFile("shaya"));
 
 
 export async function addToPlayerScore(player, riddle, time) {
