@@ -1,12 +1,10 @@
-import Riddle from '../clases/riddle.js';
-import Player from '../clases/player.js';
+import Riddle from '../classes/riddle.js';
+import Player from '../classes/player.js';
 import PromptSync from 'prompt-sync';
 // import { CheckIfExistInFile } from './api.js'
 import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore ,updeatLowestTime} from './api.js'
 // import { fetchToReadRiddleDB, CheckIfExistInFile, CreateNewPlayer, addToPlayerScore } from './api.js'
 // ask the user what level he whant
-import InputHandler from './inputHandler.js'
-let input = new InputHandler();
 
 
 
@@ -18,10 +16,10 @@ export async function playGame(input) {
     
     // const allRiddles = await readRiddleDB()
     let allRiddles = [await fetchToReadRiddleDB()]
-    console.log(await allRiddles)
+    
     // initilyze the riddles list filterd by riddle-level
     let filtertRiddleList = allRiddles.filter((item) => item.level === level);
-    // console.log(filtertRiddleList)
+    console.log(filtertRiddleList)
     //  allRiddles = allRiddles.j
     const name = await input.ask(`enter your name!`)
 
@@ -94,4 +92,4 @@ async function playerForGame(name) {
 
 // console.log(playertest.id);
 
-playGame(input);
+// playGame(input);

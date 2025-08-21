@@ -1,7 +1,7 @@
 import express from "express";
 import { getAllPlayers, createNewPlayer, checkIfExsist, getPlayerId, writeToPlayerScores, updatePlayerBestTime } from "../Dal/playerDal.js";
-import { tokenCreator, tokenVerifier, verifyTokenOnly, authorizeRoles, checkExistingToken } from '../Authentication/tokenHandler.js'
-import { login, singUp } from '../Authentication/loginManeger.js'
+// import { tokenCreator, tokenVerifier, verifyTokenOnly, authorizeRoles, checkExistingToken } from '../Authentication/tokenHandler.js'
+// import { login, singUp } from '../Authentication/loginManeger.js'
 import { getPlayerByName, updatePlayerLtime, addNewPlayer, addPlayerScore } from '../controlers/playersCtrl.js'
 const router = express.Router();
 
@@ -12,14 +12,16 @@ router.get('/players', async (req, res) => {
     res.json(data)
 });
 
+
+// this and point have  a problem that he return onli the id 
 router.get('/player/:name', async (req, res) => {
     console.log(req.body)
     res.send(await getPlayerByName(req));
 });
 
-router.post('/player/login', async (req, res) => {
-    await login(req, res)
-});
+// router.post('/player/login', async (req, res) => {
+//     await login(req, res)
+// });
 
 router.post('/player', async (req, res) => {
     res.send(await addNewPlayer(req));
@@ -29,10 +31,10 @@ router.post('/player/addScore', async (req, res) => {
     res.send(await addPlayerScore(req));
 });
 
-router.post('/player/singup', async (req, res) => {
-    let result = await singUp(req, res);
-    res.send(result)
-});
+// router.post('/player/singup', async (req, res) => {
+//     let result = await singUp(req, res);
+//     res.send(result)
+// });
 
 router.put('/player/updateltime', async (req, res) => {
     res.send(await updatePlayerLtime(req));

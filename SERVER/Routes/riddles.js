@@ -1,6 +1,6 @@
 import express from 'express';
 import { insertNewRiddel, getAllRiddeles, deletedByQuestion } from '../Dal/riddlesDal.js'
-import { tokenVerifier, authorizeRoles } from '../Authentication/tokenHandler.js'
+// import { tokenVerifier, authorizeRoles } from '../Authentication/tokenHandler.js'
 import {addNewRiddle} from '../controlers/riddleCtrl.js'
 const router = express.Router();
 
@@ -12,7 +12,7 @@ router.get('/riddles', async (req, res) => {
 
 // create a new riddle with a Post method
 router.post('/riddles', async (req, res) => {
-    res.send(await insertNewRiddel(req));
+    res.send(await insertNewRiddel(req.body));
 });
 
 router.delete('/riddles/:question', async (req, res) => {

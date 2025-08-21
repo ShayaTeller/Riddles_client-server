@@ -32,6 +32,7 @@ export async function deletedByQuestion(Question) {
 
 
 
+const data = await getAllRiddeles();
 
 
 // await deletedByQuestion("4+2");

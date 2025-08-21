@@ -4,13 +4,15 @@ import { PlayersDB } from '../lib/supabase.js';
 const conn = await PlayersDB();
 
 
-export async function create(collection,username,role) {
+export async function create(collection,username,role,password) {
     const { data , error } = await conn.from(collection)
-        .insert({ username: username, role: role })
+        .insert({ username: username, role: role,password:password })
         if(error){return error.message};
         if(data){return data}
     
 }
+
+// console.log(await create('players',"jjj","user"))
 
 export async function read(collection) {
     const { data , error } = await conn.from(collection).select('*');
@@ -18,6 +20,9 @@ export async function read(collection) {
         if(data){return data}
     
 }
+
+// console.log(await read('players'))
+
     // const data = await read('players')
     // console.log( data)
     
@@ -25,8 +30,9 @@ export async function update(collection,updatekey,updatevalue,username) {
     const { data , error } = await conn.from(collection).update({[updatekey]:updatevalue}).eq('username',username)
         if(error){return error.message};
         if(data){return data}
-    
 }
+
+// console.log(await update('players','best_time',18,"shaya"))
 
 export async function deleteone(collection,deleteValue,username) {
     const { data , error } = await conn.from(collection).delete(deleteValue).eq('username',username)
@@ -35,10 +41,14 @@ export async function deleteone(collection,deleteValue,username) {
     
 }
 
+// console.log(await deleteone('players','*','pini'))
+
 // const data = await deleteone('players','*','username');
 
 // const data = update('players','best_time',60,'dudi');
 // console.log(await data)
+
+
 
 export async function createNewPlayer(userName, role) {
     try {
@@ -55,6 +65,7 @@ export async function createNewPlayer(userName, role) {
     }
 }
 
+// console.log(await createNewPlayer('shaya','user'))
 
 
 
@@ -90,9 +101,8 @@ export async function getAllPlayers() {
     }
 }
 
-console.log(await getAllPlayers());
 
-export async function getPlayerByName(name) {
+export async function C(name) {
     const { data, error } = await conn.from('players').select("*").eq('username', name)
     return data || error;
 }
@@ -175,6 +185,21 @@ export async function getPlayerPassword(username) {
         .select('password')
         .eq('username', username)
         .single();
+
+
+    if (error) {
+        console.error('DB Error:', error);
+        return null;
+    }
+
+    return data;
+}
+
+export async function getPlayerByname(username) {
+    const { data, error } = await conn
+        .from('players')
+        .select('*')
+        .eq('username', username)
 
 
     if (error) {

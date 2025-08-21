@@ -139,7 +139,6 @@ export async function CheckIfExistInFile(name) {
 
 }
 
-console.log(await CheckIfExistInFile("shaya"));
 
 
 export async function addToPlayerScore(player, riddle, time) {

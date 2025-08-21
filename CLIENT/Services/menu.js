@@ -49,11 +49,14 @@ import {
 // }
 
 export async function mainMenu() {
+
   const input = new InputHandler();
 
   try {
     console.log("Welcome to Riddles Game!");
+
     const choice = await input.getMainMenuChoice();
+    
     switch (choice) {
       case "Play the game":
         await playGame(input);
