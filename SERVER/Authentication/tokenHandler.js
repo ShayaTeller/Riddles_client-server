@@ -19,7 +19,6 @@ export async function tokerCreator(player) {
   const options = {
     expiresIn: "2m",
     issuer: "riddle-System",
-    secure: true
   };
   const token = jwt.sign(payload, secretKey, options);
   return token;
