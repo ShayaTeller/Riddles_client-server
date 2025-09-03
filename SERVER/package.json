@@ -1,13 +1,13 @@
 {
   "name": "riddles-server",
   "version": "1.0.0",
-  "main": "ServerApp.js",
+  "main": "App.js",
   "type": "module",
   "description": "שרת משחק חידות",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ServerApp.js",
-    "dev": "node --watch ServerApp.js"
+    "start": "node App.js",
+    "dev": "node --watch App.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.55.0",
