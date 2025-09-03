@@ -7,9 +7,7 @@ import { resolveAny } from "dns"
 // מביא את כל החידות 
 export async function fetchToReadRiddleDB() {
     const dataInFile =  await fetch('http://localhost:3002/riddles')
-    let pooledData = await dataInFile.json();
-    
-    return pooledData
+    return dataInFile
 }
 
 // this fetch return ine riddle bi given an id in the params 
@@ -30,7 +28,7 @@ export async function fetchNewRiddle(newriddle) {
         headers: {
             "Content-Type": "application/json"
         },
-        body: newriddle
+        body: JSON.stringify(newriddle)
     })
 }
 
@@ -131,7 +129,7 @@ export async function loginPlayerAndPasswordAndToken(username, password,token) {
 export async function CheckIfExistInFile(name) {
     // let jsonName = {"name":name}
     const res = await fetch(`http://localhost:3002/player/${name}`);
-    return await res.text()
+    return await res.json()
 
     // console.log(resultId);
 
@@ -139,7 +137,6 @@ export async function CheckIfExistInFile(name) {
 
 }
 
-console.log(await CheckIfExistInFile("shaya"));
 
 
 export async function addToPlayerScore(player, riddle, time) {

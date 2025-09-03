@@ -1,10 +1,9 @@
-import { getPlayerId,updatePlayerBestTime} from '../Dal/playerDal.js'
+import {createNewPlayer, getPlayerId,updatePlayerBestTime,getPlayerByname} from '../Dal/playerDal.js'
 
 export async function getPlayerByName(req) {
     let name = req.params.name;
     console.log(name)
-    const playerId = await getPlayerId(name);
-
+    const playerId = await getPlayerByname(name);
     if (playerId) {
         return playerId;
     } else {
@@ -26,13 +25,13 @@ export async function updatePlayerLtime(req) {
 
 
 
-export async function addNewPlayer(req) {
-    const name = req.body.name;
-    const role = req.body.role;
-    const id = await createNewPlayer(name, role);
+export async function addNewPlayer(username,password,role) {
+    console.log(username,password,role)
+    const id = await createNewPlayer(username, role,password);
     return id;
-
 }
+
+
 
 export async function addPlayerScore(req) {
     console.log(req.body);

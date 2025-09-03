@@ -49,11 +49,14 @@ import {
 // }
 
 export async function mainMenu() {
+
   const input = new InputHandler();
 
   try {
     console.log("Welcome to Riddles Game!");
+
     const choice = await input.getMainMenuChoice();
+    
     switch (choice) {
       case "Play the game":
         await playGame(input);
@@ -62,7 +65,8 @@ export async function mainMenu() {
       case "Create a new riddle":
         const newRiddle = await askForRiddle(input);
         //    console.log(riddele)
-        await fetchNewRiddle(() => newRiddle);
+        await fetchNewRiddle(newRiddle);
+        console.log(newRiddle)
         console.log("Riddle created successfully!");
         break;
 
