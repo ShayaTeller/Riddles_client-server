@@ -7,14 +7,24 @@ const router = express.Router();
 // getting all riddels
 router.get('/riddles', async (req, res) => {
     let data = await getAllRiddeles();
-    res.json(data);
+    res.send(data);
 });
+
+// strucore of a new riddle
+//      "id": 0,
+//     "name": "test1",
+//     "difficulty": "easy",
+//     "taskDescription": "10+10",
+//     "correctAnswer": "2",
+//     "timeLimit": 30
 
 // create a new riddle with a Post method
 router.post('/riddles', async (req, res) => {
     res.send(await insertNewRiddel(req.body));
 });
 
+/***************************************** */
+// delete an exsisting riddle by Question in the parrams
 router.delete('/riddles/:question', async (req, res) => {
     res.send(await deletedByQuestion(req.params.question));
 });
@@ -22,14 +32,3 @@ router.delete('/riddles/:question', async (req, res) => {
 export default router;
 
 
-
-// router.put('/riddles/:id', async (req, res) => {
-//     // console.log(req.body)
-//     res.end(await updateRiddleById(req.params.id, req.body)
-//     )
-// })
-
-// getting one riddle by id
-// router.get('/riddles/:id', async (req, res) => {
-//     res.json(found);
-// });

@@ -25,14 +25,13 @@ export async function updatePlayerLtime(req) {
 
 
 
-export async function addNewPlayer(req) {
-    const name = req.body.name;
-    const role = req.body.role;
-    const password = req.body.password;
-    const id = await createNewPlayer(name, role,password);
+export async function addNewPlayer(username,password,role) {
+    console.log(username,password,role)
+    const id = await createNewPlayer(username, role,password);
     return id;
-
 }
+
+
 
 export async function addPlayerScore(req) {
     console.log(req.body);

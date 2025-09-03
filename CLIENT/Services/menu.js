@@ -65,7 +65,8 @@ export async function mainMenu() {
       case "Create a new riddle":
         const newRiddle = await askForRiddle(input);
         //    console.log(riddele)
-        await fetchNewRiddle(() => newRiddle);
+        await fetchNewRiddle(newRiddle);
+        console.log(newRiddle)
         console.log("Riddle created successfully!");
         break;
 

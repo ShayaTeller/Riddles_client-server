@@ -50,10 +50,10 @@ export async function deleteone(collection,deleteValue,username) {
 
 
 
-export async function createNewPlayer(userName, role) {
+export async function createNewPlayer(userName, role,password) {
     try {
         const { data, error } = await conn.from('players')
-            .insert({ username: userName, role: role })
+            .insert({ username: userName, role: role , password:password })
             .select('id');
         if (!data) { return 'Username exists in database, choose another username.' };
         if (error) console.error('Insert to DB failed');
@@ -94,9 +94,11 @@ export async function createNewPlayerWithPassword(userName, password, role) {
 export async function getAllPlayers() {
     const { data, error } = await conn.from('players').select("*");
     if(data){
+        console.log(data)
         return data;
     }
     if(error){
+        console.log(error)
         return error.message
     }
 }

@@ -4,20 +4,21 @@ import PromptSync from 'prompt-sync';
 export default class Riddle {
     // the constractor thaks a object 
     constructor(riddle) {
-        this.id = riddle._id;
-        this.level = riddle.level,
-        this.question = riddle.question,
-        this.answer = riddle.answer
+        this.id = 0,
+        this.name =riddle.name,
+        this.difficulty = riddle.difficulty,
+        this.taskDescription = riddle.taskDescription,
+        this.correctAnswer = riddle.correctAnswer,
+        this.timeLimit = riddle.parseInt(timeLimit) || 30
     }
 
 
     // this function ask the player the riddle and save the answer and checking it , stop asking when the answer is correct
-    ask(start) {
-        const prompt = PromptSync();
-        while (this.res != this.answer) {
-            this.res = prompt(this.question + ' ');
+    ask(input) {
+        while (this.response != this.correctAnswer) {
+            this.response = input.ask(this.taskDescription + ' ');
 
-            if (this.res != this.answer) {
+            if (this.response != this.correctAnswer) {
                 console.log('Wrong answer, try again.');
             }
         }

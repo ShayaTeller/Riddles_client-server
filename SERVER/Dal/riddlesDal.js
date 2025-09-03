@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { mongoClientDb } from '../lib/mongoClient.js'
+import e from 'express';
 // const clientDB = new MongoClient(uri);
 // export default clientDB
 
@@ -32,7 +33,6 @@ export async function deletedByQuestion(Question) {
 
 
 
-const data = await getAllRiddeles();
 
 
 // await deletedByQuestion("4+2");

@@ -13,20 +13,19 @@ router.get('/players', async (req, res) => {
 });
 
 
-// this and point have  a problem that he return onli the id 
+// this and point bring a player by name
 router.get('/player/:name', async (req, res) => {
     console.log(req.body)
     res.send(await getPlayerByName(req));
 });
 
-// router.post('/player/login', async (req, res) => {
-//     await login(req, res)
-// });
 
+// sedt an new player to db
 router.post('/player', async (req, res) => {
     res.send(await addNewPlayer(req));
 });
 
+// post the history of plaeys by players
 router.post('/player/addScore', async (req, res) => {
     res.send(await addPlayerScore(req));
 });
@@ -36,6 +35,8 @@ router.post('/player/addScore', async (req, res) => {
 //     res.send(result)
 // });
 
+
+// update the besttime by player (use if is lower from lowest time)
 router.put('/player/updateltime', async (req, res) => {
     res.send(await updatePlayerLtime(req));
 });

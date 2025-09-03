@@ -1,46 +1,62 @@
-// import jwt from 'jsonwebtoken'
-// import { getPlayerByName } from '../Dal/playerDal.js';
-// import { configDotenv } from 'dotenv';
-// configDotenv()
-// const secretKey = process.env.JWT_SECRET;
-// // const secretKey = '44346'
+import jwt from "jsonwebtoken";
+import { getPlayerByname } from "../Dal/playerDal.js";
+import { configDotenv } from "dotenv";
+configDotenv();
+const secretKey = process.env.JWT_SECRET;
 
-// // export async function getToken(username) {
-// //     const player = await getPlayerByName(username);
-// //     const token = tokerCreator(player)
-// //     return token
+export async function getToken(username) {
+  const player = await getPlayerByname(username);
+  const token = tokerCreator(player);
+  return token;
+}
 
-// // }
-// // export async function tokerCreator(player) {
-// //     const payload = {
-// //         playerId: player.id,
-// //         username: player.username,
-// //         role: player.role || "user"
-// //     }
-// //     const options = {
-// //         expiresIn: '2m',
-// //         issuer: 'riddle-System',
-// //     }
-// //     const token = jwt.sign(payload, secretKey, options);
-// //     return token
-// // }
+export async function tokerCreator(player) {
+  const payload = {
+    playerId: player.id,
+    username: player.username,
+    role: player.role || "user",
+  };
+  const options = {
+    expiresIn: "2m",
+    issuer: "riddle-System",
+    secure: true
+  };
+  const token = jwt.sign(payload, secretKey, options);
+  return token;
+}
 
-// // // export async function tokenVeryfayer(req, res, next) {
-// // //     if(req.body.token !=null && req.body.token !=" "){
-// // //     try {
-// // //         const token = req.body.token
-// // //         const decoded = jwt.verify(token, secretKey)
-// // //         if (decoded) {
-// // //             return true,("login succesfuli")
-// // //         }
-// // //         else {
-// // //             return false,("token expierd login agen!")
-// // //         }
-// // //         console.log(decoded);
-// // //     } catch (error) {
-// // //         return false,("try agen check the token")
-// // //     }}
 
+
+export async function tokenVeryfayer(req, res, next) {
+  if (req.body.token != null && req.body.token != " ") {
+    try {
+      const token = req.body.token;
+      const decoded = jwt.verify(token, secretKey);
+      if (decoded) {
+        return true, "login succesfuli";
+      } else {
+        return false, "token expierd login agen!";
+      }
+      console.log(decoded);
+    } catch (error) {
+      return false, "try agen check the token";
+    }
+  }
+}
+
+// export function tokenVerifier(req, res, next) {
+//   const token = req.cookies.token; // שולפים מהקוקי שנקרא "token"
+//   if (!token) {
+//     return res.status(401).json({ success: false, message: "No token provided" });
+//   }
+//   try {
+//     const decoded = jwt.verify(token, secretKey);
+//     req.user = decoded; // מצמיד את המידע של המשתמש ל־req
+//     next(); // ממשיכים לראוט הבא
+//   } catch (error) {
+//     return res.status(403).json({ success: false, message: "Invalid or expired token" });
+//   }
+// }
 
 
 // // // }
@@ -65,7 +81,6 @@
 // //     }
 // // }
 
-
 // // export function authorizeRoles(...allowedRoles) {
 // //     return (req, res, next) => {
 // //         if (!req.player || !req.player.role) {
@@ -82,10 +97,8 @@
 
 // // export default tokerCreator;
 
-
 // // import jwt from 'jsonwebtoken'
 // // import { getPlayerByName } from '../Dal/PlayerDAL/playerDal.js';
-
 
 // export async function getToken(username) {
 //     const player = await getPlayerByName(username);
@@ -100,12 +113,11 @@
 
 // // const token = getToken("shaya")
 
-
 // export function tokenCreator(player) {
 //     const payload = {
 //         playerId: player.id,
 //         username: player.username,
-//         role: player.role 
+//         role: player.role
 //     };
 
 //     const options = {
@@ -171,8 +183,6 @@
 //     }
 // }
 
-
-
 // // check before login if token exsist, if not exsist he go to next-login and give hem a new token
 // export function checkExistingToken(req, res, next) {
 //     const token = req.headers.authorization?.split(' ')[1] || req.body.token;
@@ -225,7 +235,5 @@
 //         }
 //     };
 // }
-
-
 
 // export default tokenCreator;
